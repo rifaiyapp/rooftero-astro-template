@@ -1,0 +1,595 @@
+---
+import { site } from '../config/site';
+import Layout from '../layouts/Layout.astro';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
+
+const benefits = [
+  { icon: 'ph-clock-countdown', title: 'We arrive on time', text: 'Clear arrival windows and real updates from your local crew.' },
+  { icon: 'ph-receipt', title: 'Up-front pricing', text: 'Know the full scope and price before any roofing work begins.' },
+  { icon: 'ph-shield-check', title: 'Built right, first time', text: 'Detail-led workmanship backed by a written protection plan.' },
+  { icon: 'ph-cloud-lightning', title: 'Fast storm response', text: 'Urgent tarping and leak control when bad weather hits.' },
+];
+
+const services = [
+  { icon: 'ph-hammer', title: 'Roof repairs', text: 'Leaks, flashing, storm damage and missing shingles.', image: '/assets/about-roof-detail.jpg', alt: 'Roofer completing a detailed shingle repair', width: 1200, height: 896, position: 'repair' },
+  { icon: 'ph-magnifying-glass', title: 'Roof inspections', text: 'Photo-documented checks and honest repair advice.', image: '/assets/about-roof-inspect.jpg', alt: 'Roof inspector checking a residential roof', width: 1200, height: 896, position: 'inspection', featured: true },
+  { icon: 'ph-house-line', title: 'Roof replacement', text: 'Complete, code-compliant reroofing built to last.', image: '/assets/roofing-services.png', alt: 'Roofing crew installing replacement shingles', width: 1600, height: 1100, position: 'replacement' },
+];
+
+const testimonials = [
+  { quote: 'Rooflume found the leak two other companies missed. The repair was neat, the price matched the quote, and our home was spotless afterward.', name: 'Monica R.', area: 'North Hills' },
+  { quote: 'From the inspection to the final magnet sweep, the team communicated brilliantly. Our new roof looks fantastic and feels ready for anything.', name: 'Daniel K.', area: 'Brookside' },
+  { quote: 'A storm peeled shingles off overnight. Rooflume had the roof protected that morning and completed the permanent repair two days later.', name: 'Avery T.', area: 'Riverside' },
+  { quote: 'The crew walked us through every repair option, protected the landscaping, and left the property clean at the end of each day.', name: 'Roofing Customer', area: 'Eastgate' },
+  { quote: 'Our replacement schedule stayed organized from delivery through cleanup. The updates were clear, practical, and easy to understand.', name: 'Roofing Customer', area: 'Westfield' },
+  { quote: 'After heavy rain exposed a flashing issue, the team documented the problem and completed a tidy repair without any runaround.', name: 'Roofing Customer', area: 'Lakeview' },
+];
+
+const faqs = [
+  { question: 'Do you provide emergency roof repairs?', answer: 'Yes. Call as soon as it is safe to do so. We prioritize active leaks and storm openings, then inspect the damage and explain whether temporary protection or a permanent repair is the right next step.' },
+  { question: 'Is the initial roof inspection free?', answer: 'Our initial roof check is free for homeowners in our listed service area. We document visible concerns, explain the practical options, and provide a clear scope before any paid work begins.' },
+  { question: 'How do I know if I need repair or replacement?', answer: 'A focused repair may be appropriate when damage is limited and the surrounding roof is still serviceable. Replacement may make more sense when damage is widespread, recurring, or the roof system is near the end of its useful life.' },
+  { question: 'How long does a roof replacement take?', answer: 'Timing depends on roof size, complexity, materials, weather, and any deck repairs discovered after removal. Your written proposal will include the expected schedule, and the crew will keep you updated if conditions change.' },
+  { question: 'Can you help with storm-damage insurance documentation?', answer: 'We can photograph visible damage and provide a written roofing scope for your records. Coverage decisions and claim approvals remain between you and your insurance carrier, and we do not promise a particular claim outcome.' },
+];
+---
+
+<Layout>
+  <header class="site-header" id="top">
+    <div class="topbar shell">
+      <a class="brand" href="#top" aria-label={`${site.name} home`}>
+        <ResponsiveImage src={site.logo.src} alt={site.logo.alt} width="430" height="161" loading="eager" sizes="(max-width: 520px) 185px, (max-width: 820px) 205px, 285px" />
+      </a>
+      <a class="phone-lockup header-phone" href={site.phone.href} aria-label={`Call ${site.name} at ${site.phone.display}`}>
+        <span class="phone-icon"><i class="ph-fill ph-phone-call" aria-hidden="true"></i></span>
+        <span class="phone-copy"><small>Book Same-Day Service</small><strong>Call {site.phone.display}</strong></span>
+      </a>
+      <a class="button button-gold header-cta" href="#callback">{site.primaryCta}</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <i class="ph ph-list" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <nav class="nav-shell shell" id="site-nav" aria-label="Primary navigation">
+      <ul class="nav-inner">
+        <li><a class="active" href="#home" aria-current="page">Home</a></li>
+        <li><a href="#promise">Why Us</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#process">How It Works</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#roof-check">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <div class="hero-promise-canvas">
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <picture class="hero-media" aria-hidden="true">
+        <source media="(max-width: 820px)" type="image/avif" srcset="/assets/optimized/hero-roofing-1280.avif" />
+        <source type="image/avif" srcset="/assets/optimized/hero-roofing-1920.avif" />
+        <source media="(max-width: 820px)" type="image/webp" srcset="/assets/optimized/hero-roofing-1280.webp" />
+        <img src="/assets/optimized/hero-roofing-1920.webp" width="1920" height="850" alt="" loading="eager" fetchpriority="high" decoding="async" />
+      </picture>
+      <div class="hero-shade"></div>
+      <div class="shell hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">Local roofers. Lasting protection.</p>
+          <h1 id="hero-title"><span>Fixed today.</span><strong>Not next storm.</strong><span class="h1-context">Roof repair and replacement in North Hills and the greater metro area.</span></h1>
+          <p>Responsive roof repair and replacement from licensed professionals who respect your time, home, and budget.</p>
+          <div class="hero-actions">
+            <a class="phone-lockup light" href={site.phone.href} aria-label={`Call a local ${site.name} roofer at ${site.phone.display}`}>
+              <span class="phone-icon"><i class="ph ph-phone-call" aria-hidden="true"></i></span>
+              <span><small>Talk with a local roofer</small><strong>{site.phone.display}</strong></span>
+            </a>
+            <a class="button button-gold" href="#callback">{site.primaryCta}</a>
+          </div>
+          <ul class="hero-proof" aria-label="Service assurances">
+            <li><i class="ph-fill ph-seal-check" aria-hidden="true"></i> Licensed & insured</li>
+            <li><i class="ph-fill ph-star" aria-hidden="true"></i> 4.9 homeowner rating</li>
+          </ul>
+        </div>
+
+        <form class="callback-card hero-callback" id="callback" method="dialog" novalidate aria-labelledby="callback-title">
+          <div aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);pointer-events:none;">
+            <label for="callback-website">Website</label>
+            <input id="callback-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+          <div class="hero-form-panel">
+            <div class="form-header"><p>Need roofing help?</p><h2 id="callback-title">Free roof inspection</h2></div>
+            <div class="form-body">
+              <label for="name">Name</label><input id="name" name="name" autocomplete="name" required placeholder="Your name" />
+              <label for="phone">Phone number</label><input id="phone" name="phone" autocomplete="tel" inputmode="tel" required placeholder={site.phone.display} />
+              <label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" required placeholder="hello@example.com" />
+              <label for="zip">ZIP Code</label><input id="zip" name="zip" autocomplete="postal-code" inputmode="numeric" required pattern="[0-9]{5}(-[0-9]{4})?" maxlength="10" title="Enter a 5-digit ZIP Code or ZIP+4." placeholder="ZIP Code" />
+              <label for="message">How can we help?</label><textarea id="message" name="message" rows="2" required placeholder="Tell us about your roof"></textarea>
+              <button class="button button-gold submit-button" type="submit">{site.primaryCta}</button>
+              <p class="form-note">No spam. No obligation.</p><p class="form-status" role="status" aria-live="polite"></p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="benefits angled-bottom" id="promise" aria-labelledby="benefits-title">
+      <div class="shell section-stack">
+        <div class="section-heading navy">
+          <span>Why choose us</span>
+          <h2 id="benefits-title">The {site.name} promise</h2>
+        </div>
+        <div class="benefit-grid">
+          {benefits.map((item) => (
+            <article class="benefit-card">
+              <div class="icon-medallion"><i class={`ph ${item.icon}`} aria-hidden="true"></i></div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+    </div>
+
+    <section class="services" id="services" aria-labelledby="services-title">
+      <div class="shell section-stack">
+        <div class="section-heading light">
+          <span>What we do</span>
+          <h2 id="services-title">Roofing services</h2>
+        </div>
+        <div class="service-grid">
+          {services.map((service) => (
+            <article class:list={['service-card', { featured: service.featured }]}>
+              <div class={`service-image ${service.position}`}>
+                <ResponsiveImage src={service.image} alt={service.alt} width={service.width} height={service.height} loading="lazy" decoding="async" />
+              </div>
+              <div class="service-card-body">
+                <div class="service-icon"><i class={`ph ${service.icon}`} aria-hidden="true"></i></div>
+                <h3>{service.title}</h3>
+                <p>{service.text}</p>
+                <a href="#callback" aria-label={`Request an estimate for ${service.title}`}>Free Quote <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="about shell" id="about" aria-labelledby="about-title">
+      <div class="about-media" aria-label={`${site.name} roofing services in action`}>
+        <div class="about-media-card main-card">
+          <ResponsiveImage src="/assets/roofing-services.png" alt="Professional roofing crew installing shingles with safety harnesses" width="1600" height="1100" loading="lazy" decoding="async" />
+        </div>
+        <div class="about-media-card inspect-card">
+          <ResponsiveImage src="/assets/about-roof-inspect.jpg" alt="Roof inspector conducting detailed slope and flashing assessment" width="1200" height="896" loading="lazy" decoding="async" />
+        </div>
+        <div class="about-media-card detail-card">
+          <ResponsiveImage src="/assets/about-roof-detail.jpg" alt="Close-up of precise architectural shingle nailing and alignment" width="1200" height="896" loading="lazy" decoding="async" />
+        </div>
+        <div class="about-media-badge">
+          <span class="badge-icon"><i class="ph-fill ph-seal-check" aria-hidden="true"></i></span>
+          <div class="badge-copy">
+            <strong>Local Roofing Experts</strong>
+            <small>Certified • Safe • Guaranteed</small>
+          </div>
+        </div>
+      </div>
+      <div class="about-copy">
+        <p class="script-label">About us</p>
+        <h2 id="about-title">Roofing without the runaround</h2>
+        <p class="lead">We started {site.name} because homeowners deserved a roofer who calls back, shows up, and stands behind the work.</p>
+        <p>From pinpoint repairs to complete replacement, our team combines clear recommendations, careful protection of your property, and documentation at every stage. You always know what is happening above your head.</p>
+        <div class="compact-actions">
+          <a class="phone-lockup" href={site.phone.href} aria-label={`Call the ${site.name} team at ${site.phone.display}`}><span class="phone-icon"><i class="ph ph-phone-call" aria-hidden="true"></i></span><span><small>Speak with our team</small><strong>{site.phone.display}</strong></span></a>
+          <a class="button button-navy" href="#process">Our process</a>
+        </div>
+        <div class="about-trust">
+          <div class="about-trust-item">
+            <div class="about-trust-icon"><i class="ph ph-medal" aria-hidden="true"></i></div>
+            <div class="about-trust-copy">
+              <strong>Licensed & insured</strong>
+              <span>Professional roofing crews</span>
+            </div>
+          </div>
+          <div class="about-trust-item">
+            <div class="about-trust-icon"><i class="ph ph-shield-checkered" aria-hidden="true"></i></div>
+            <div class="about-trust-copy">
+              <strong>Trusted materials</strong>
+              <span>Manufacturer-backed products</span>
+            </div>
+          </div>
+          <div class="about-trust-item">
+            <div class="about-trust-icon"><i class="ph ph-hard-hat" aria-hidden="true"></i></div>
+            <div class="about-trust-copy">
+              <strong>Written protection</strong>
+              <span>Clear workmanship terms</span>
+            </div>
+          </div>
+          <div class="about-trust-item">
+            <div class="about-trust-icon"><i class="ph ph-map-pin" aria-hidden="true"></i></div>
+            <div class="about-trust-copy">
+              <strong>Local service</strong>
+              <span>Metro-area roofing team</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="process angled-bottom" id="process" aria-labelledby="process-title">
+      <div class="shell section-stack">
+        <div class="section-heading navy">
+          <span>Our process</span>
+          <h2 id="process-title">How it works</h2>
+        </div>
+        <div class="process-stage">
+          <div class="process-track" aria-hidden="true">
+            <svg class="process-wave" viewBox="0 0 1200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Chevrons left, vertically centred at y=63 (icon center in grid coords) -->
+              <path class="wave-chevron" d="M10 54l11 9-11 9M24 54l11 9-11 9" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
+              <!-- Wave enters at chevron level (~63), dips through step 1, crests above center card icon, dips through step 3, exits upper right -->
+              <path class="wave-path" d="M40 63 C 115 90, 175 94, 235 94 C 355 94, 440 20, 600 20 C 760 20, 845 94, 965 94 C 1035 94, 1080 48, 1128 8" stroke="currentColor" stroke-width="2.5" stroke-dasharray="8 8" stroke-linecap="round" />
+              <!-- Paper plane at the end of the path -->
+              <g transform="translate(1105,0) rotate(-25) scale(0.88)">
+                <path class="wave-plane" d="M0 16L32 0L14 32L11 20L0 16z M11 20L32 0" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+              </g>
+            </svg>
+          </div>
+          <div class="process-grid">
+            <article class="process-step">
+              <div class="process-icon">
+                <svg class="process-svg-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-hidden="true">
+                  <path d="M832 128h-96v-32c0-17.673-14.327-32-32-32s-32 14.327-32 32v32h-320v-32c0-17.673-14.327-32-32-32s-32 14.327-32 32v32h-96c-35.346 0-64 28.654-64 64v640c0 35.346 28.654 64 64 64h640c35.346 0 64-28.654 64-64v-640c0-35.346-28.654-64-64-64zM288 192v32c0 17.673 14.327 32 32 32s32-14.327 32-32v-32h320v32c0 17.673 14.327 32 32 32s32-14.327 32-32v-32h96v128h-640v-128h128zM832 832h-640v-448h640v448zM678.64 489.36c5.798 5.792 9.385 13.797 9.385 22.64s-3.587 16.848-9.385 22.64l-192 192c-5.792 5.798-13.797 9.385-22.64 9.385s-16.848-3.587-22.64-9.385l-96-96c-5.794-5.794-9.378-13.799-9.378-22.64 0-17.683 14.335-32.018 32.018-32.018 8.841 0 16.846 3.584 22.64 9.378l73.36 73.4 169.36-169.4c5.792-5.798 13.797-9.385 22.64-9.385s16.848 3.587 22.64 9.385z" />
+                </svg>
+              </div>
+              <h3>CALL <em>OR</em><br />BOOK ONLINE</h3>
+              <p>Tell us what you need</p>
+            </article>
+
+            <article class="process-step featured">
+              <div class="process-icon">
+                <svg class="process-svg-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-hidden="true">
+                  <path d="M1021.68 468l-56-140c-9.668-23.645-32.494-40-59.141-40h-138.539v-32c0-17.673-14.327-32-32-32h-608c-35.346 0-64 28.654-64 64v448c0 35.346 28.654 64 64 64h68c14.63 55.774 64.588 96.251 124 96.251s109.37-40.477 124-96.251h200c14.63 55.774 64.588 96.251 124 96.251s109.37-40.477 124-96.251h68c35.346 0 64-28.654 64-64v-256c0-4.295-.852-8.39-2.32-12zM768 352h138.32l38.4 96h-176.72v-96zM128 288h576v256h-576v-256zM320 832c-35.346 0-64-28.654-64-64s28.654-64 64-64 64 28.654 64 64-28.654 64-64 64zM644 736h-200c-14.63-55.774-64.588-96.251-124-96.251s-109.37 40.477-124 96.251h-68v-128h576v49.24c-29.355 17.188-50.963 44.911-60 78.76zM768 832c-35.346 0-64-28.654-64-64s28.654-64 64-64 64 28.654 64 64-28.654 64-64 64zM960 736h-68c-14.799-55.621-64.683-95.942-124-96v-128h192v224z" />
+                </svg>
+              </div>
+              <h3>WE ARRIVE<br />SAME DAY</h3>
+              <p>On time, ready to go</p>
+            </article>
+
+            <article class="process-step">
+              <div class="process-icon">
+                <svg class="process-svg-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-hidden="true">
+                  <path d="M907.04 276c-4.878-11.826-16.316-19.998-29.664-19.998-8.382 0-16.012 3.223-21.696 8.479l-161.2 148.76-68.92-14.8-14.8-68.92 148.76-161.2c5.255-5.684 8.478-13.314 8.478-21.696 0-13.347-8.172-24.786-19.998-29.664-31.956-13.295-69.076-21.017-108-21.017-159.058 0-288 128.942-288 288 0 41.861 8.833 81.526 24 115.76l-240.84 208.24c-.6.48-1.16 1.04-1.72 1.56-23.166 23.166-37.495 55.17-37.495 90.52 0 70.701 57.314 128.015 128.015 128.015 35.35 0 67.354-14.329 90.52-37.495.52-.52 1.08-1.12 1.56-1.68l208.2-240.92c34.079 15.348 73.875 24.289 115.76 24.289 159.058 0 288-128.942 288-288 0-38.922-7.701-75.877-20.96-108zM640 608c-39.745-.056-77.055-10.429-108.28-28-4.462-2.511-9.795-3.99-15.474-3.99-9.652 0-18.305 4.273-24.207 11.07l-223.6 258.96c-11.453 10.897-26.984 17.601-44.081 17.601-35.346 0-64-28.654-64-64 0-17.097 6.704-32.628 17.602-44.081l258.76-223.56c6.806-5.901 11.085-14.56 11.085-24.219 0-5.689-1.485-11.032-4.005-15.501-17.6-31.252-27.968-68.608-27.968-108.386 0-123.712 100.288-224 224-224 13.214 0 26.161 1.144 37.408 2.95l-124.8 135.24c-5.251 5.683-8.472 13.31-8.472 21.689 0 2.377.259 4.694.712 6.711l22.64 105.32c2.715 12.316 12.244 21.845 24.56 24.56l105.4 22.64c2.017.452 4.334.712 6.711.712 8.379 0 16.006-3.221 21.689-8.471l135.24-124.8c1.968 11.16 3.094 24.008 3.094 37.12 0 123.765-100.267 224.111-224.014 224.24z" />
+                </svg>
+              </div>
+              <h3>WE FIX IT<br />PROPERLY</h3>
+              <p>Done right the first time</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials" id="reviews" aria-labelledby="reviews-title">
+      <div class="shell section-stack">
+        <div class="section-heading light">
+          <span>Homeowners say it best</span>
+          <h2 id="reviews-title">Protected homes. Happy clients.</h2>
+        </div>
+        <div class="testimonial-carousel" role="region" aria-roledescription="carousel" aria-label="Customer reviews" tabindex="0">
+          <div class="testimonial-stage">
+            <button class="review-arrow prev" type="button" aria-label="Previous testimonial"><i class="ph ph-caret-left" aria-hidden="true"></i></button>
+            <div class="testimonial-grid">
+              <div class="testimonial-track" aria-live="polite">
+                {testimonials.map((item, index) => (
+                  <blockquote class="testimonial-card" data-review={index} role="group" aria-roledescription="slide" aria-label={`Review ${index + 1} of ${testimonials.length}`}>
+                    <div class="quote-mark">
+                      <svg viewBox="0 0 448 512" width="30" height="30" fill="currentColor" aria-hidden="true">
+                        <path d="M0 216C0 149.7 53.7 96 120 96h8c17.7 0 32 14.3 32 32s-14.3 32-32 32h-8c-30.9 0-56 25.1-56 56v8h64c35.3 0 64 28.7 64 64v64c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V216zm256 0c0-66.3 53.7-120 120-120h8c17.7 0 32 14.3 32 32s-14.3 32-32 32h-8c-30.9 0-56 25.1-56 56v8h64c35.3 0 64 28.7 64 64v64c0 35.3-28.7 64-64 64h-64c-35.3 0-64-28.7-64-64V216z" />
+                      </svg>
+                    </div>
+                    <p>“{item.quote}”</p>
+                    <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                    <small class="google-review">Google Review</small>
+                    <footer><strong>{item.name}</strong><span>{item.area}</span></footer>
+                  </blockquote>
+                ))}
+              </div>
+            </div>
+            <button class="review-arrow next" type="button" aria-label="Next testimonial"><i class="ph ph-caret-right" aria-hidden="true"></i></button>
+          </div>
+          <div class="testimonial-pagination" role="group" aria-label="Choose a testimonial">
+            {testimonials.map((_, index) => <button type="button" data-review-dot={index} aria-label={`Show review ${index + 1}`} aria-current={index === 0 ? 'true' : 'false'}></button>)}
+          </div>
+          <div class="satisfaction-commitment">
+            <strong>Customer Satisfaction Commitment</strong>
+            <small>Clear communication <b aria-hidden="true">•</b> Respectful crews <b aria-hidden="true">•</b> Quality workmanship</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="roofing-faq-section" id="faq" aria-labelledby="faq-title">
+      <div class="roofing-faq shell">
+        <div class="roofing-faq-content">
+          <p class="roofing-faq-label">Roofing FAQ</p>
+          <h2 id="faq-title" class="roofing-faq-title"><span>Roofing Questions?</span><strong>We&rsquo;ve Got Answers.</strong></h2>
+          <p class="roofing-faq-intro">Clear answers to the most common roofing questions homeowners ask. If you don&rsquo;t see your question here, give us a call&mdash;we&rsquo;re happy to help.</p>
+
+          <div class="faq-list">
+            {faqs.map((faq, index) => (
+              <article class="faq-item">
+                <h3>
+                  <button class="faq-question" type="button" aria-expanded="false" aria-controls={`faq-answer-${index}`} id={`faq-question-${index}`}>
+                    <span class="faq-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                    <span>{faq.question}</span>
+                    <i class="ph ph-caret-down" aria-hidden="true"></i>
+                  </button>
+                </h3>
+                <div class="faq-answer" id={`faq-answer-${index}`} role="region" aria-labelledby={`faq-question-${index}`} aria-hidden="true" inert>
+                  <div class="faq-answer-inner"><p>{faq.answer}</p></div>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <ul class="faq-trust" aria-label={`${site.name} service commitments`}>
+            <li>
+              <span class="faq-trust-icon" aria-hidden="true"><svg viewBox="0 0 1024 1024" fill="currentColor"><path d="M855.4 501.84l-448 480c-5.854 6.235-14.148 10.12-23.351 10.12-17.673 0-32-14.327-32-32 0-2.165.215-4.28.591-6.12l58.64-293.32-230.52-86.56c-12.247-4.675-20.789-16.326-20.789-29.972 0-8.542 3.347-16.303 8.789-22.028l448-480c5.854-6.235 14.148-10.12 23.351-10.12 17.673 0 32 14.327 32 32 0 2.165-.215 4.28-.591 6.12l-58.8 293.64 230.52 86.44c12.174 4.712 20.65 16.326 20.65 29.919 0 8.471-3.292 16.173-8.49 21.879z" /></svg></span>
+              <span class="faq-trust-copy"><strong>Fast response</strong><small>Clear scheduling updates</small></span>
+            </li>
+            <li>
+              <span class="faq-trust-icon" aria-hidden="true"><svg viewBox="0 0 1024 1024" fill="currentColor"><path d="M832 160h-640c-35.346 0-64 28.654-64 64v224c0 210.88 102.08 338.68 187.72 408.76 92.24 75.44 184 101.04 188 102.12 2.519.713 5.412 1.122 8.4 1.122s5.881-.41 8.4-1.122c4-1.08 95.64-26.68 188-102.12 85.4-70.08 187.48-197.88 187.48-408.76v-224c0-35.346-28.654-64-64-64zM694.72 438.64l-224 224c-5.792 5.798-13.797 9.385-22.64 9.385s-16.848-3.587-22.64-9.385l-96-96c-5.794-5.794-9.378-13.799-9.378-22.64 0-17.683 14.335-32.018 32.018-32.018 8.841 0 16.846 3.584 22.64 9.378l73.28 73.4 201.36-201.4c5.794-5.794 13.799-9.378 22.64-9.378 17.683 0 32.018 14.335 32.018 32.018 0 8.841-3.584 16.846-9.378 22.64z" /></svg></span>
+              <span class="faq-trust-copy"><strong>Licensed &amp; insured</strong><small>Professional roofing crews</small></span>
+            </li>
+            <li>
+              <span class="faq-trust-icon" aria-hidden="true"><svg viewBox="0 0 1024 1024" fill="currentColor"><path d="M512 64c-194.313.228-351.772 157.687-352 352 0 301.2 320 528.68 333.64 538.2 5.116 3.623 11.485 5.791 18.36 5.791s13.244-2.168 18.36-5.791c13.64-9.52 333.64-237 333.64-538.2-.228-194.313-157.687-351.772-352-352zM512 288c70.692 0 128 57.308 128 128s-57.308 128-128 128-128-57.308-128-128 57.308-128 128-128z" /></svg></span>
+              <span class="faq-trust-copy"><strong>Local experts</strong><small>Neighborhood service</small></span>
+            </li>
+          </ul>
+        </div>
+
+        <aside class="faq-worker-side" aria-label="Free roof inspection">
+          <div class="faq-worker-visual">
+            <ResponsiveImage src="/assets/local-roofer.png" alt={`${site.name} roofer ready to help a homeowner`} width="1024" height="1536" loading="lazy" decoding="async" />
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="roof-check-cta angled-bottom" id="roof-check" aria-labelledby="roof-check-title">
+      <div class="roof-check-layout shell">
+        <div class="roof-check-copy">
+          <p class="roof-check-eyebrow">A stronger roof starts here.</p>
+          <h2 id="roof-check-title"><span>Get your free</span><strong>roof inspection</strong></h2>
+          <p class="roof-check-intro">Photo-documented advice, clear options, and no high-pressure sales pitch.</p>
+
+          <div class="roof-check-actions">
+            <a class="roof-check-phone" href={site.phone.href} aria-label={`Call ${site.name}'s free inspection line at ${site.phone.display}`}>
+              <span class="roof-check-phone-icon"><i class="ph-fill ph-phone-call" aria-hidden="true"></i></span>
+              <span class="roof-check-phone-copy"><small>Free inspection line</small><strong>{site.phone.display}</strong></span>
+            </a>
+            <a class="button roof-check-button" href="#callback">{site.primaryCta} <i class="ph-bold ph-arrow-up-right" aria-hidden="true"></i></a>
+          </div>
+        </div>
+
+        <div class="roof-check-media">
+          <div class="roof-check-photo">
+            <ResponsiveImage src="/assets/roofing-fleet.png" alt={`${site.name} service vehicles ready for a residential roof inspection`} width="1920" height="760" loading="lazy" decoding="async" />
+          </div>
+          <div class="roof-check-media-badge" aria-hidden="true">
+            <span><i class="ph-fill ph-shield-check"></i></span>
+            <p><small>Inspection ready</small><strong>Local crews. Clear answers.</strong></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" aria-label={`${site.name} footer`}>
+    <div class="shell footer-main">
+      <div class="footer-brand">
+        <ResponsiveImage src={site.logo.src} alt={site.logo.alt} width="430" height="161" sizes="250px" loading="lazy" decoding="async" />
+        <p>Responsive roof repair, replacement, and storm support from a local team that keeps homeowners informed.</p>
+        <a class="phone-lockup light" href={site.phone.href} aria-label={`Call ${site.name} at ${site.phone.display}`}><span class="phone-icon"><i class="ph ph-phone-call" aria-hidden="true"></i></span><span><small>Roofing help is one call away</small><strong>{site.phone.display}</strong></span></a>
+      </div>
+      <nav class="footer-links" aria-labelledby="footer-nav-title">
+        <h2 id="footer-nav-title">Explore {site.name}</h2>
+        <ul><li><a href="#home">Home</a></li><li><a href="#promise">Why Us</a></li><li><a href="#services">Services</a></li><li><a href="#about">About</a></li><li><a href="#process">How It Works</a></li><li><a href="#reviews">Reviews</a></li><li><a href="#faq">FAQ</a></li><li><a href="#roof-check">Contact</a></li></ul>
+      </nav>
+      <div class="footer-action">
+        <p>Need an expert look at your roof?</p>
+        <a class="button button-gold" href="#callback">{site.primaryCta}</a>
+      </div>
+    </div>
+    <div class="footer-bottom shell"><span>&copy; 2026 {site.name}. All rights reserved.<br /><small>{site.name} is a fictional demonstration brand. Template designed and developed by KEYDIV.</small></span><a href="#top">Back to top <i class="ph ph-arrow-up" aria-hidden="true"></i></a></div>
+  </footer>
+
+  <nav class="mobile-action-bar" aria-label="Mobile quick actions">
+    <a class="mobile-action mobile-action-call" href={site.phone.href} aria-label={`Call ${site.name} at ${site.phone.display}`}>
+      <svg viewBox="0 0 1024 1024" fill="currentColor" focusable="false" aria-hidden="true">
+        <path d="M577.08 183.72c3.773-13.776 16.181-23.732 30.913-23.732 2.947 0 5.801.398 8.286 1.091 120.967 32.312 214.328 125.672 246.09 244.229l.55 2.411c.693 2.485 1.092 5.34 1.092 8.287 0 14.733-9.956 27.14-23.732 30.914-2.482.679-5.333 1.072-8.28 1.08-14.743 0-27.156-9.97-30.92-23.76-26.353-98.751-102.569-174.967-199.353-200.872l-1.967-.448c-13.795-3.761-23.769-16.177-23.769-30.923 0-2.944.397-5.794 1.089-8.277zM567.76 350.92c55.16 14.72 90.6 50.16 105.32 105.32 3.764 13.79 16.177 23.76 30.92 23.76 2.947-.008 5.798-.401 8.28-1.08 13.776-3.773 23.732-16.181 23.732-30.913 0-2.947-.398-5.801-1.091-8.286-20.48-76.64-74-130.16-150.64-150.64-2.478-.689-5.323-1.084-8.26-1.084-17.675 0-32.004 14.329-32.004 32.004 0 14.738 9.962 27.149 23.743 30.92zM895.52 732.32c-15.024 111.012-109.183 195.68-223.52 195.68-317.6 0-576-258.4-576-576 0-114.337 84.669-208.495 195.68-223.52 2.329-.3 5.023-.472 7.757-.472 26.144 0 48.627 15.677 58.723 38.552l84.48 188.6v.48c3.336 7.499 5.279 16.249 5.279 25.452 0 12.982-3.865 25.061-10.358 34.908-.72 1.08-1.48 2.08-2.28 3.08l-83.28 98.72c29.96 60.88 93.64 124 155.32 154.04l97.36-82.84c.885-.749 1.863-1.485 3-2.24 9.978-6.738 22.276-10.756 35.512-10.756 9.095 0 17.746 1.897 25.168 5.157l.52.24 188.44 84.44c22.937 10.07 38.666 32.584 38.666 58.772 0 2.717-.169 5.394-.466 7.708zM832 724.32h-.44l-188-84.2-97.4 82.84c-.874.745-1.839 1.481-2.96 2.24-9.98 6.741-22.28 10.761-35.519 10.761-9.987 0-19.44-2.288-27.482-6.2-74.92-36.2-149.6-110.32-185.84-184.44-4.026-8.14-6.381-17.724-6.381-27.857 0-12.996 3.874-25.088 10.381-34.943.731-1.161 1.483-2.167 2.28-3.08l83.36-98.84-84-188c-.008-.072-.012-.155 0-.48-79.407 10.654-140.001 77.975-140.001 159.88.319 282.642 229.359 511.682 512 512 81.936 0 149.201-60.443 160-139.68z" />
+      </svg>
+      <span>Call</span>
+    </a>
+    <a class="mobile-action mobile-action-quote" href="#callback" aria-label="Go to the free roof inspection form">
+      <svg viewBox="0 0 1024 1024" fill="currentColor" focusable="false" aria-hidden="true">
+        <path d="M672 608c0 17.673-14.327 32-32 32h-256c-17.673 0-32-14.327-32-32s14.327-32 32-32h256c17.673 0 32 14.327 32 32zM640 448h-256c-17.673 0-32 14.327-32 32s14.327 32 32 32h256c17.673 0 32-14.327 32-32s-14.327-32-32-32zM864 192v672c0 35.346-28.654 64-64 64h-576c-35.346 0-64-28.654-64-64v-672c0-35.346 28.654-64 64-64h145.04c35.255-39.349 86.23-63.994 142.96-63.994s107.705 24.645 142.96 63.994h145.04c35.346 0 64 28.654 64 64zM384 256h256c0-70.692-57.308-128-128-128s-128 57.308-128 128zM800 192h-107c6.969 19.056 10.999 41.057 11 64v32c0 17.673-14.327 32-32 32h-320c-17.673 0-32-14.327-32-32v-32c.001-22.943 4.031-44.944 11-64h-107v672h576v-672z" />
+      </svg>
+      <span>Quote</span>
+    </a>
+  </nav>
+
+  <script>
+    const toggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('#site-nav');
+    toggle?.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!open));
+      toggle.setAttribute('aria-label', open ? 'Open menu' : 'Close menu');
+      nav?.classList.toggle('open', !open);
+    });
+    nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => { toggle?.setAttribute('aria-expanded', 'false'); nav.classList.remove('open'); }));
+
+    const reviewCarousel = document.querySelector<HTMLElement>('.testimonial-carousel');
+    const reviewTrack = reviewCarousel?.querySelector<HTMLElement>('.testimonial-track');
+    const reviewDots = Array.from(reviewCarousel?.querySelectorAll<HTMLButtonElement>('[data-review-dot]') ?? []);
+    const originalReviewCards = Array.from(reviewTrack?.querySelectorAll<HTMLElement>('[data-review]') ?? []);
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let visibleReviews = 3;
+    let trackReview = 0;
+    let activeReview = 0;
+    let reviewTransitioning = false;
+    let reviewSettleTimer = 0;
+    let reviewAutoplay = 0;
+    let reviewHovering = false;
+    let reviewFocused = false;
+    let reviewTouchStart = 0;
+    let reviewStep = 0;
+
+    const getVisibleReviews = () => window.innerWidth <= 520 ? 1 : window.innerWidth <= 1050 ? 2 : 3;
+    const getReviewStep = () => {
+      const card = reviewTrack?.querySelector<HTMLElement>('.testimonial-card');
+      if (!card || !reviewTrack) return 0;
+      const gap = parseFloat(getComputedStyle(reviewTrack).columnGap || getComputedStyle(reviewTrack).gap) || 0;
+      return card.getBoundingClientRect().width + gap;
+    };
+    const syncReviewDots = () => reviewDots.forEach((dot, index) => dot.setAttribute('aria-current', String(index === activeReview)));
+    const positionReviews = (animate = true) => {
+      if (!reviewTrack) return;
+      const step = reviewStep;
+      reviewTrack.style.transition = animate && !reducedMotion.matches ? '' : 'none';
+      reviewTrack.style.transform = `translate3d(${-trackReview * step}px, 0, 0)`;
+    };
+    const settleReviews = () => {
+      if (!reviewTrack || !originalReviewCards.length) return;
+      if (trackReview >= originalReviewCards.length + visibleReviews) trackReview -= originalReviewCards.length;
+      if (trackReview < visibleReviews) trackReview += originalReviewCards.length;
+      positionReviews(false);
+      reviewTransitioning = false;
+    };
+    const showReview = (direction: number) => {
+      if (!reviewTrack || reviewTransitioning) return;
+      reviewTransitioning = true;
+      trackReview += direction;
+      activeReview = (activeReview + direction + originalReviewCards.length) % originalReviewCards.length;
+      syncReviewDots();
+      positionReviews(true);
+      window.clearTimeout(reviewSettleTimer);
+      reviewSettleTimer = window.setTimeout(settleReviews, reducedMotion.matches ? 20 : 540);
+    };
+    const rebuildReviews = () => {
+      if (!reviewTrack || !originalReviewCards.length) return;
+      reviewTrack.querySelectorAll('.is-clone').forEach((clone) => clone.remove());
+      visibleReviews = getVisibleReviews();
+      const makeClone = (card: HTMLElement) => {
+        const clone = card.cloneNode(true) as HTMLElement;
+        clone.classList.add('is-clone');
+        clone.removeAttribute('data-review');
+        clone.setAttribute('aria-hidden', 'true');
+        clone.setAttribute('role', 'presentation');
+        return clone;
+      };
+      const leading = document.createDocumentFragment();
+      originalReviewCards.slice(-visibleReviews).forEach((card) => leading.append(makeClone(card)));
+      reviewTrack.prepend(leading);
+      originalReviewCards.slice(0, visibleReviews).forEach((card) => reviewTrack.append(makeClone(card)));
+      trackReview = visibleReviews + activeReview;
+      positionReviews(false);
+      syncReviewDots();
+    };
+    const syncReviewAutoplay = () => {
+      window.clearInterval(reviewAutoplay);
+      reviewAutoplay = 0;
+      if (!reviewCarousel || reducedMotion.matches || document.hidden || reviewHovering || reviewFocused) return;
+      reviewAutoplay = window.setInterval(() => showReview(1), 6500);
+    };
+
+    reviewCarousel?.querySelector('.review-arrow.prev')?.addEventListener('click', () => showReview(-1));
+    reviewCarousel?.querySelector('.review-arrow.next')?.addEventListener('click', () => showReview(1));
+    reviewDots.forEach((dot, index) => dot.addEventListener('click', () => {
+      if (!reviewTrack || index === activeReview) return;
+      activeReview = index;
+      trackReview = visibleReviews + activeReview;
+      syncReviewDots();
+      positionReviews(true);
+    }));
+    reviewTrack?.addEventListener('transitionend', settleReviews);
+    reviewCarousel?.addEventListener('keydown', (event) => {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      event.preventDefault();
+      showReview(event.key === 'ArrowLeft' ? -1 : 1);
+    });
+    reviewCarousel?.addEventListener('mouseenter', () => { reviewHovering = true; syncReviewAutoplay(); });
+    reviewCarousel?.addEventListener('mouseleave', () => { reviewHovering = false; syncReviewAutoplay(); });
+    reviewCarousel?.addEventListener('focusin', () => { reviewFocused = true; syncReviewAutoplay(); });
+    reviewCarousel?.addEventListener('focusout', () => window.setTimeout(() => {
+      reviewFocused = Boolean(reviewCarousel?.matches(':focus-within'));
+      syncReviewAutoplay();
+    }, 0));
+    reviewCarousel?.addEventListener('touchstart', (event) => { reviewTouchStart = event.changedTouches[0]?.clientX ?? 0; }, { passive: true });
+    reviewCarousel?.addEventListener('touchend', (event) => {
+      const distance = (event.changedTouches[0]?.clientX ?? reviewTouchStart) - reviewTouchStart;
+      if (Math.abs(distance) > 45) showReview(distance < 0 ? 1 : -1);
+    }, { passive: true });
+    document.addEventListener('visibilitychange', syncReviewAutoplay);
+    reducedMotion.addEventListener('change', () => { positionReviews(false); syncReviewAutoplay(); });
+    let reviewResizeTimer = 0;
+    window.addEventListener('resize', () => {
+      window.clearTimeout(reviewResizeTimer);
+      reviewResizeTimer = window.setTimeout(rebuildReviews, 120);
+    });
+    // Read card geometry after layout; user interactions only write transforms.
+    if (reviewTrack && originalReviewCards[0]) {
+      new ResizeObserver(() => {
+        reviewStep = getReviewStep();
+        positionReviews(false);
+      }).observe(originalReviewCards[0]);
+    }
+    rebuildReviews();
+    syncReviewAutoplay();
+
+    const faqButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.faq-question'));
+    const setFaqState = (button: HTMLButtonElement, expanded: boolean) => {
+      const answerId = button.getAttribute('aria-controls');
+      const answer = answerId ? document.getElementById(answerId) : null;
+      button.setAttribute('aria-expanded', String(expanded));
+      if (answer) {
+        answer.setAttribute('aria-hidden', String(!expanded));
+        answer.toggleAttribute('inert', !expanded);
+      }
+    };
+    faqButtons.forEach((button, index) => {
+      button.addEventListener('click', () => {
+        const willOpen = button.getAttribute('aria-expanded') !== 'true';
+        faqButtons.forEach((item) => setFaqState(item, item === button && willOpen));
+      });
+      button.addEventListener('keydown', (event) => {
+        if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        const targetIndex = event.key === 'Home' ? 0 : event.key === 'End' ? faqButtons.length - 1 : event.key === 'ArrowDown' ? (index + 1) % faqButtons.length : (index - 1 + faqButtons.length) % faqButtons.length;
+        faqButtons[targetIndex]?.focus();
+      });
+    });
+
+    const callbackForm = document.querySelector<HTMLFormElement>('.callback-card');
+    const mobileActionBar = document.querySelector<HTMLElement>('.mobile-action-bar');
+    const siteFooter = document.querySelector<HTMLElement>('.site-footer');
+    const mobileActionObstructions = [callbackForm, siteFooter].filter((element): element is HTMLElement => Boolean(element));
+    if (mobileActionBar && 'IntersectionObserver' in window) {
+      const visibleObstructions = new Set<Element>();
+      const obstructionObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) visibleObstructions.add(entry.target);
+          else visibleObstructions.delete(entry.target);
+        });
+        mobileActionBar.classList.toggle('is-obscured', visibleObstructions.size > 0);
+      }, { threshold: .05 });
+      mobileActionObstructions.forEach((element) => obstructionObserver.observe(element));
+    }
+    import { connectLeadForm } from '../scripts/lead-form';
+    if (callbackForm) connectLeadForm(callbackForm);
+
+  </script>
+</Layout>

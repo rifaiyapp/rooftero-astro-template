@@ -1,0 +1,38 @@
+---
+import { site } from '../config/site';
+import '../styles/icons.css';
+import '@fontsource/lobster-two/latin-400-italic.css';
+import '@fontsource/oswald/latin-700.css';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = site.seo.title,
+  description = site.seo.description,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#061f49" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex,nofollow,noarchive,nosnippet" />
+    <meta name="author" content="KEYDIV" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/png" sizes="32x32" href={site.favicon.large} />
+    <link rel="icon" type="image/png" sizes="16x16" href={site.favicon.small} />
+    <link rel="shortcut icon" href={site.favicon.ico} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,63 @@
+{
+  "hero-roofing.png": {
+    "width": 1920,
+    "height": 850,
+    "widths": [
+      1280,
+      1920
+    ]
+  },
+  "rooflume-logo.png": {
+    "width": 2048,
+    "height": 768,
+    "widths": [
+      250,
+      500,
+      750
+    ]
+  },
+  "about-roof-detail.jpg": {
+    "width": 1200,
+    "height": 896,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "about-roof-inspect.jpg": {
+    "width": 1200,
+    "height": 896,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "roofing-services.png": {
+    "width": 1600,
+    "height": 1100,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "local-roofer.png": {
+    "width": 1024,
+    "height": 1536,
+    "widths": [
+      400,
+      800,
+      1024
+    ]
+  },
+  "roofing-fleet.png": {
+    "width": 1920,
+    "height": 760,
+    "widths": [
+      640,
+      1280
+    ]
+  }
+}

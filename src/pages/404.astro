@@ -1,0 +1,24 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { site } from "../config/site";
+---
+
+<Layout title={`Page not found | ${site.name}`} description="Find your way back to our home page.">
+  <main class="thank-you-page" id="main-content">
+    <header class="thank-you-header">
+      <a class="brand" href="/" data-runtime-mount-home aria-label={`${site.name} home`}>
+        <img src={site.logo.src} alt={site.logo.alt} width="430" height="161" />
+      </a>
+    </header>
+    <section class="thank-you-content hero-copy shell" aria-labelledby="not-found-title">
+      <p class="eyebrow">Error 404</p>
+      <h1 id="not-found-title">Page not found</h1>
+      <p>The page you requested could not be found. Head back home to find what you need.</p>
+      <a class="button button-gold" href="/" data-runtime-mount-home>Back to Home</a>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .brand img { object-fit: contain; }
+</style>
