@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "rooflume",
+  "name": "rooftero",
   "compatibility_date": "2026-09-06",
   "main": "publishing/asset-router.mjs",
   "keep_vars": true,
