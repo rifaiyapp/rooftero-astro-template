@@ -72,10 +72,10 @@ p { margin: 0; }
 .phone-lockup small { display: block; font-size: 13px; line-height: 1.35; }
 .phone-lockup strong { display: block; font: 800 25px/1.1 var(--display); white-space: nowrap; letter-spacing: -.02em; }
 .phone-icon { display: grid; width: 54px; height: 54px; flex: 0 0 54px; place-items: center; border: 2px solid var(--rooftero-cream-dark); border-radius: 50%; background: var(--rooftero-orange); color: var(--rooftero-white); font-size: 26px; box-shadow: var(--rooftero-shadow-sm); }
-.header-phone { display: flex; gap: var(--space-xs); }
+.header-phone { display: flex; align-items: center; gap: var(--space-xs); flex-shrink: 0; }
 .header-phone small { font-size: 11px; }
 .header-phone strong { font-size: 19px; }
-.header-phone .phone-icon { width: 38px; height: 38px; flex-basis: 38px; background: transparent; border: 1px solid var(--rooftero-orange); color: var(--rooftero-orange); font-size: 20px; box-shadow: none; }
+.header-phone .phone-icon { display: grid; place-items: center; width: 38px; height: 38px; flex: 0 0 38px; background: transparent; border: 1px solid var(--rooftero-orange); color: var(--rooftero-orange); font-size: 20px; box-shadow: none; }
 .header-cta { min-height: 44px; padding: 12px 18px; font-size: 13px; white-space: nowrap; }
 
 
@@ -294,8 +294,6 @@ p { margin: 0; }
 @media (min-width: 1600px) { .hero-inner { min-height: 640px; } }
 @media (min-width: 1201px) and (max-width: 1399px) {
   .topbar.shell { gap: var(--space-md); }
-  .header-phone .phone-icon { display: none; }
-  .nav-inner li:last-child { display: none; }
 }
 @media (max-width: 1200px) {
   .shell { width: calc(100% - 80px); }
