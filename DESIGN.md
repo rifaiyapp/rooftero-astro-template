@@ -1,70 +1,48 @@
-# Design System
+# Rooftero design system
 
-## Project intent
-- Audience: homeowners seeking roofing and restoration services; template buyers customizing for clients.
-- Primary user goal: request a free roof inspection or call.
-- Page/site archetype: approved premium roofing and restoration single-page commercial template.
-- Brand personality: confident, practical local service authority; Rooflume is a fictional demo brand.
-- Current profile: private-demo (Project Configuration).
-
-## Design input
-- Input mode: reference-led; existing approved implementation is the reference.
-- Reference fidelity (when applicable): strict composition and behavior preservation.
-- Supplied direction/assets: preserve all existing source and public imagery. Factory upgrades do not authorize redesign.
-
-## Art direction
-- Selected style family: Service Authority, describing the approved design rather than replacing it.
-- Secondary influence (optional): none added.
-- Design thesis: bold roofing photography, angular navy/orange compositions and prominent inspection/call actions.
-- Signature visual idea: polygon-cut sections, ribbons and action shapes.
-- Visual density: retain the completed content-rich landing page.
+## Intent and reference
+- Audience: homeowners seeking roof repair, inspection, replacement and storm response; Rooftero is a fictional demonstration brand.
+- Input: reference-led, strict composition, using `design-references/rooftero-reference.png` at its original 724 × 2172 resolution.
+- Design thesis: a practical roofing service page with warm cream surfaces, deep forest bands, bold compact headings and clear inspection/call actions.
+- Preserve original business copy, phone, services, reviews, FAQs, navigation destinations and form functionality. Reference text and photos do not replace repository content.
 
 ## Composition
-- Main grid/alignment: existing CSS grids and section alignment are authoritative.
-- Content width/gutters: base shell min(1480px, calc(100% - 60px)); preserve responsive overrides.
-- Hero/section anatomy: preserve exact source order in src/pages/index.astro, including hero callback, services, process, testimonials, FAQ and footer.
-- Media treatment: preserve image placement, object positions, polygon clips and overlays.
+- One fixed 80px header combines logo, dark-green navigation, phone and inspection action on translucent white with an 18px blur. At narrower widths, navigation uses a white dropdown; mobile header height is 70px. Document padding and anchor offsets account for the header.
+- Hero: original residential roofing image, cream readability overlay, left headline/call actions, right white callback card, shallow curved bottom edge.
+- Four promise cards; three equal service cards on forest with overlapping circular icons.
+- About: layered existing roofing photos on the left, content and a two-column trust list on the right.
+- Process: photo panel occupying 32%, horizontal steps occupying 68% at desktop.
+- Reviews: forest band, white cards, matching outlined circular controls, six original reviews and pagination.
+- FAQ: introduction and roofing media on the left, numbered accordion and trust points on the right.
+- Final CTA: standalone white section with generous vertical space, a 46/54 copy/photo split, rounded architectural fleet crop and a lightly overlapping inspection badge. Three-part forest footer.
+- Desktop shell: 90% at 1440px, capped at 1296px, matching the reference's approximately 90% content width. Smaller screens use 20–40px gutters.
+- Spacing rhythm: shared 8/12/16/24/32/48px tokens; large sections use 80–112px, medium sections 64–96px, compact sections 56–72px. Mobile section spacing is 56–64px. Reviews and footer remain comparatively compact. Form content determines hero height without clipping.
 
-## Typography
-- Display role: Arial Narrow, Roboto Condensed, Impact, sans-serif stack as implemented.
-- Body role: Inter, system UI and existing fallback stack; do not introduce a new font download.
-- Label/navigation role: existing display stack; Lobster Two italic and Oswald 700 for the phone lockup.
-- Scale/line-length notes: all current clamps, weights, line heights, letter spacing and wrapping remain authoritative.
+## Typography and color
+- Headings: self-hosted League Spartan, weights 700–800; tight tracking, sentence case except hero/process.
+- Body and interface: self-hosted Inter, weights 400–700. Both fonts use swap and carry their OFL licenses.
+- Hero title: roughly 67px at 1440px; section titles 44–54px; body 16px; compact supporting labels 12–15px.
+- Tokens are centralized in `src/styles/global.css` under `--rooftero-*`.
+- Cream #f8f4ec, forest #263e34 and #102d28, headings #0b3036, text #263936.
+- Burnt orange #a94f12 for accessible white-text actions; warm orange for dark-section labels; white form/cards.
+- Corners 6–10px; soft forest-tinted shadows; restrained borders. No polygon buttons or section ribbons.
 
-## Color
-- Background: navy #061f49, deep navy #031936, white #ffffff.
-- Surface: paper #f2f1ef and navy-soft #15345d.
-- Text: ink #14233c with existing white-on-dark treatment.
-- Muted: #60708a.
-- Primary accent/action: orange #ff6a00.
-- Secondary accent (optional): gold #ffc248.
-- Border/focus: existing borders and visible gold focus treatment.
+## Brand and imagery
+- Original geometric roof/protective R mark and custom path wordmark: `public/brand/rooftero-logo.svg`, reversed variant and standalone mark.
+- All logo artwork is vector paths, with no external font or image dependency.
+- Runtime-served brand copies and fonts live under `public/assets/` so existing nested-mount URL rewriting remains unchanged. The requested `public/brand/` SVGs are the portable originals.
+- Existing roofing photographs remain the only photographic source. Recompose/crop to fit the reference without generating new roofing imagery.
+- Explicit image dimensions and responsive AVIF/WebP sources remain. Hero is eager/high-priority; supporting images load lazily.
 
-## Spacing
-- Rhythm: retain current section-specific spacing rather than normalizing it.
-- Key section/gutter notes: src/styles/global.css is the precise spacing source of truth.
+## Interaction and responsive behavior
+- Primary action: existing inspection form; secondary: existing telephone number. Form fields, validation, gateway behavior, metadata and submitted event remain intact.
+- Existing carousel, FAQ, navigation and floating-action hooks are preserved.
+- Motion: short hover/focus and existing carousel/accordion transitions; honor reduced motion.
+- Tablet: two review cards; two promise columns; about/process/FAQ recompose as needed.
+- Mobile: copy and actions before form; one service/review column; vertical process; stacked FAQ and final CTA; circular call/quote actions hide around form/footer.
+- Semantic labels, keyboard focus, accordion states and touch targets remain required.
 
-## Imagery
-- Approved sources/assets: existing public/assets originals and optimized variants, local logos, icons and fonts. Resale licensing requires separate confirmation.
-- Imagery role: real roofing/service photography, fleet and service area map.
-- Crop/aspect treatment: retain every current crop, dimension and responsive source selection.
-- LCP/media notes: hero uses the existing eager/high-priority image; preserve below-fold loading behavior.
-
-## Interaction / CTA
-- Primary action: free roof inspection callback form.
-- Secondary action (if justified): call links and mobile action bar.
-- Motion language: preserve existing carousel, navigation, hover transitions, scrolling and reduced-motion rules.
-
-## Responsive behavior
-- Desktop: preserve multi-column compositions and callback placement.
-- Tablet: preserve current 1050px and 820px reflow rules.
-- Mobile: preserve 520px rules, mobile menu, sticky call/inspection actions and current imagery positioning.
-
-## Current page-specific notes
-The approved implementation controls all details not enumerated here. Preserve 100% of page design, layout, content, responsive behavior, imagery, field structure, animations, typography, colors and functionality during Project Upgrade.
-
-Callback controls remain website (honeypot), name, phone, email, zip and message, in their existing order. Preserve validation, pending/error/success states, duplicate protection and the submitted event. Default submissions are non-sending demos with honest feedback; customer-configured live mode retains the approved pending/error/success behavior. Read docs/FORM-INTEGRATION.md before integrations. Common rebrand values live in src/config/site.ts.
-
-The thank-you page follows the home hero's photographic navy treatment, with a top-centered logo and viewport-centered confirmation. It reuses hero typography, eyebrow, gold button and responsive image crop, with all styling in global.css.
-
-The minimal 404 page reuses the approved navy thank-you shell, logo, hero typography and gold home action. Its home links target the trusted runtime mount root; unknown documents retain HTTP 404.
+## Runtime constraints
+- Exactly one `private-demo` profile: preserve noindex metadata/headers, crawling behavior and absence of promoting canonical/sitemap.
+- Customer-owned non-sending demo form remains the default. Protected runtime, lead configuration, publishing and dependency files are unchanged by visual work.
+- Confirmation and strict 404 reuse the cream/forest brand while retaining their existing route behavior.

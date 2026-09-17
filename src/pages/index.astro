@@ -17,9 +17,9 @@ const services = [
 ];
 
 const testimonials = [
-  { quote: 'Rooflume found the leak two other companies missed. The repair was neat, the price matched the quote, and our home was spotless afterward.', name: 'Monica R.', area: 'North Hills' },
+  { quote: 'Rooftero found the leak two other companies missed. The repair was neat, the price matched the quote, and our home was spotless afterward.', name: 'Monica R.', area: 'North Hills' },
   { quote: 'From the inspection to the final magnet sweep, the team communicated brilliantly. Our new roof looks fantastic and feels ready for anything.', name: 'Daniel K.', area: 'Brookside' },
-  { quote: 'A storm peeled shingles off overnight. Rooflume had the roof protected that morning and completed the permanent repair two days later.', name: 'Avery T.', area: 'Riverside' },
+  { quote: 'A storm peeled shingles off overnight. Rooftero had the roof protected that morning and completed the permanent repair two days later.', name: 'Avery T.', area: 'Riverside' },
   { quote: 'The crew walked us through every repair option, protected the landscaping, and left the property clean at the end of each day.', name: 'Roofing Customer', area: 'Eastgate' },
   { quote: 'Our replacement schedule stayed organized from delivery through cleanup. The updates were clear, practical, and easy to understand.', name: 'Roofing Customer', area: 'Westfield' },
   { quote: 'After heavy rain exposed a flashing issue, the team documented the problem and completed a tidy repair without any runaround.', name: 'Roofing Customer', area: 'Lakeview' },
@@ -35,33 +35,18 @@ const faqs = [
 ---
 
 <Layout>
-  <header class="site-header" id="top">
+  <div id="top" aria-hidden="true"></div>
+  <header class="site-header">
     <div class="topbar shell">
       <a class="brand" href="#top" aria-label={`${site.name} home`}>
-        <ResponsiveImage src={site.logo.src} alt={site.logo.alt} width="430" height="161" loading="eager" sizes="(max-width: 520px) 185px, (max-width: 820px) 205px, 285px" />
+        <img src={site.logo.src} alt={site.logo.alt} width="320" height="76" loading="eager" />
       </a>
       <a class="phone-lockup header-phone" href={site.phone.href} aria-label={`Call ${site.name} at ${site.phone.display}`}>
         <span class="phone-icon"><i class="ph-fill ph-phone-call" aria-hidden="true"></i></span>
         <span class="phone-copy"><small>Book Same-Day Service</small><strong>Call {site.phone.display}</strong></span>
       </a>
       <a class="button button-gold header-cta" href="#callback">{site.primaryCta}</a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
-        <i class="ph ph-list" aria-hidden="true"></i>
-      </button>
     </div>
-
-    <nav class="nav-shell shell" id="site-nav" aria-label="Primary navigation">
-      <ul class="nav-inner">
-        <li><a class="active" href="#home" aria-current="page">Home</a></li>
-        <li><a href="#promise">Why Us</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#process">How It Works</a></li>
-        <li><a href="#reviews">Reviews</a></li>
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#roof-check">Contact</a></li>
-      </ul>
-    </nav>
   </header>
 
   <main id="main-content">
@@ -77,7 +62,8 @@ const faqs = [
       <div class="shell hero-inner">
         <div class="hero-copy">
           <p class="eyebrow">Local roofers. Lasting protection.</p>
-          <h1 id="hero-title"><span>Fixed today.</span><strong>Not next storm.</strong><span class="h1-context">Roof repair and replacement in North Hills and the greater metro area.</span></h1>
+          <h1 id="hero-title"><span>Fixed today.</span><strong>Not next storm.</strong></h1>
+          <p class="hero-subheading">Roof repair and replacement in North Hills and the greater metro area.</p>
           <p>Responsive roof repair and replacement from licensed professionals who respect your time, home, and budget.</p>
           <div class="hero-actions">
             <a class="phone-lockup light" href={site.phone.href} aria-label={`Call a local ${site.name} roofer at ${site.phone.display}`}>
@@ -217,7 +203,8 @@ const faqs = [
       </div>
     </section>
 
-    <section class="process angled-bottom" id="process" aria-labelledby="process-title">
+    <section class="process" id="process" aria-labelledby="process-title">
+      <div class="process-media" aria-hidden="true"><ResponsiveImage src="/assets/about-roof-detail.jpg" alt="" width="1200" height="896" sizes="(max-width: 820px) 100vw, 33vw" /></div>
       <div class="shell section-stack">
         <div class="section-heading navy">
           <span>Our process</span>
@@ -243,7 +230,7 @@ const faqs = [
                   <path d="M832 128h-96v-32c0-17.673-14.327-32-32-32s-32 14.327-32 32v32h-320v-32c0-17.673-14.327-32-32-32s-32 14.327-32 32v32h-96c-35.346 0-64 28.654-64 64v640c0 35.346 28.654 64 64 64h640c35.346 0 64-28.654 64-64v-640c0-35.346-28.654-64-64-64zM288 192v32c0 17.673 14.327 32 32 32s32-14.327 32-32v-32h320v32c0 17.673 14.327 32 32 32s32-14.327 32-32v-32h96v128h-640v-128h128zM832 832h-640v-448h640v448zM678.64 489.36c5.798 5.792 9.385 13.797 9.385 22.64s-3.587 16.848-9.385 22.64l-192 192c-5.792 5.798-13.797 9.385-22.64 9.385s-16.848-3.587-22.64-9.385l-96-96c-5.794-5.794-9.378-13.799-9.378-22.64 0-17.683 14.335-32.018 32.018-32.018 8.841 0 16.846 3.584 22.64 9.378l73.36 73.4 169.36-169.4c5.792-5.798 13.797-9.385 22.64-9.385s16.848 3.587 22.64 9.385z" />
                 </svg>
               </div>
-              <h3>CALL <em>OR</em><br />BOOK ONLINE</h3>
+              <h3>CALL <em>OR</em> BOOK ONLINE</h3>
               <p>Tell us what you need</p>
             </article>
 
@@ -253,7 +240,7 @@ const faqs = [
                   <path d="M1021.68 468l-56-140c-9.668-23.645-32.494-40-59.141-40h-138.539v-32c0-17.673-14.327-32-32-32h-608c-35.346 0-64 28.654-64 64v448c0 35.346 28.654 64 64 64h68c14.63 55.774 64.588 96.251 124 96.251s109.37-40.477 124-96.251h200c14.63 55.774 64.588 96.251 124 96.251s109.37-40.477 124-96.251h68c35.346 0 64-28.654 64-64v-256c0-4.295-.852-8.39-2.32-12zM768 352h138.32l38.4 96h-176.72v-96zM128 288h576v256h-576v-256zM320 832c-35.346 0-64-28.654-64-64s28.654-64 64-64 64 28.654 64 64-28.654 64-64 64zM644 736h-200c-14.63-55.774-64.588-96.251-124-96.251s-109.37 40.477-124 96.251h-68v-128h576v49.24c-29.355 17.188-50.963 44.911-60 78.76zM768 832c-35.346 0-64-28.654-64-64s28.654-64 64-64 64 28.654 64 64-28.654 64-64 64zM960 736h-68c-14.799-55.621-64.683-95.942-124-96v-128h192v224z" />
                 </svg>
               </div>
-              <h3>WE ARRIVE<br />SAME DAY</h3>
+              <h3>WE ARRIVE SAME DAY</h3>
               <p>On time, ready to go</p>
             </article>
 
@@ -263,7 +250,7 @@ const faqs = [
                   <path d="M907.04 276c-4.878-11.826-16.316-19.998-29.664-19.998-8.382 0-16.012 3.223-21.696 8.479l-161.2 148.76-68.92-14.8-14.8-68.92 148.76-161.2c5.255-5.684 8.478-13.314 8.478-21.696 0-13.347-8.172-24.786-19.998-29.664-31.956-13.295-69.076-21.017-108-21.017-159.058 0-288 128.942-288 288 0 41.861 8.833 81.526 24 115.76l-240.84 208.24c-.6.48-1.16 1.04-1.72 1.56-23.166 23.166-37.495 55.17-37.495 90.52 0 70.701 57.314 128.015 128.015 128.015 35.35 0 67.354-14.329 90.52-37.495.52-.52 1.08-1.12 1.56-1.68l208.2-240.92c34.079 15.348 73.875 24.289 115.76 24.289 159.058 0 288-128.942 288-288 0-38.922-7.701-75.877-20.96-108zM640 608c-39.745-.056-77.055-10.429-108.28-28-4.462-2.511-9.795-3.99-15.474-3.99-9.652 0-18.305 4.273-24.207 11.07l-223.6 258.96c-11.453 10.897-26.984 17.601-44.081 17.601-35.346 0-64-28.654-64-64 0-17.097 6.704-32.628 17.602-44.081l258.76-223.56c6.806-5.901 11.085-14.56 11.085-24.219 0-5.689-1.485-11.032-4.005-15.501-17.6-31.252-27.968-68.608-27.968-108.386 0-123.712 100.288-224 224-224 13.214 0 26.161 1.144 37.408 2.95l-124.8 135.24c-5.251 5.683-8.472 13.31-8.472 21.689 0 2.377.259 4.694.712 6.711l22.64 105.32c2.715 12.316 12.244 21.845 24.56 24.56l105.4 22.64c2.017.452 4.334.712 6.711.712 8.379 0 16.006-3.221 21.689-8.471l135.24-124.8c1.968 11.16 3.094 24.008 3.094 37.12 0 123.765-100.267 224.111-224.014 224.24z" />
                 </svg>
               </div>
-              <h3>WE FIX IT<br />PROPERLY</h3>
+              <h3>WE FIX IT PROPERLY</h3>
               <p>Done right the first time</p>
             </article>
           </div>
@@ -312,11 +299,13 @@ const faqs = [
 
     <section class="roofing-faq-section" id="faq" aria-labelledby="faq-title">
       <div class="roofing-faq shell">
-        <div class="roofing-faq-content">
+        <div class="roofing-faq-introduction">
           <p class="roofing-faq-label">Roofing FAQ</p>
           <h2 id="faq-title" class="roofing-faq-title"><span>Roofing Questions?</span><strong>We&rsquo;ve Got Answers.</strong></h2>
           <p class="roofing-faq-intro">Clear answers to the most common roofing questions homeowners ask. If you don&rsquo;t see your question here, give us a call&mdash;we&rsquo;re happy to help.</p>
+        </div>
 
+        <div class="roofing-faq-content">
           <div class="faq-list">
             {faqs.map((faq, index) => (
               <article class="faq-item">
@@ -324,7 +313,7 @@ const faqs = [
                   <button class="faq-question" type="button" aria-expanded="false" aria-controls={`faq-answer-${index}`} id={`faq-question-${index}`}>
                     <span class="faq-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
                     <span>{faq.question}</span>
-                    <i class="ph ph-caret-down" aria-hidden="true"></i>
+                    <span class="faq-toggle-icon" aria-hidden="true"></span>
                   </button>
                 </h3>
                 <div class="faq-answer" id={`faq-answer-${index}`} role="region" aria-labelledby={`faq-question-${index}`} aria-hidden="true" inert>
@@ -350,11 +339,9 @@ const faqs = [
           </ul>
         </div>
 
-        <aside class="faq-worker-side" aria-label="Free roof inspection">
-          <div class="faq-worker-visual">
-            <ResponsiveImage src="/assets/local-roofer.png" alt={`${site.name} roofer ready to help a homeowner`} width="1024" height="1536" loading="lazy" decoding="async" />
-          </div>
-        </aside>
+        <div class="roofing-faq-media">
+          <ResponsiveImage src="/assets/local-roofer.png" alt={`${site.name} local roofer`} width="1024" height="1536" loading="lazy" decoding="async" />
+        </div>
       </div>
     </section>
 
@@ -376,7 +363,7 @@ const faqs = [
 
         <div class="roof-check-media">
           <div class="roof-check-photo">
-            <ResponsiveImage src="/assets/roofing-fleet.png" alt={`${site.name} service vehicles ready for a residential roof inspection`} width="1920" height="760" loading="lazy" decoding="async" />
+            <ResponsiveImage src="/assets/roofing-fleet.png" alt={`${site.name} service vehicles ready for a residential roof inspection`} width="1920" height="760" sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1200px) 50vw, 700px" loading="lazy" decoding="async" />
           </div>
           <div class="roof-check-media-badge" aria-hidden="true">
             <span><i class="ph-fill ph-shield-check"></i></span>
@@ -390,7 +377,7 @@ const faqs = [
   <footer class="site-footer" aria-label={`${site.name} footer`}>
     <div class="shell footer-main">
       <div class="footer-brand">
-        <ResponsiveImage src={site.logo.src} alt={site.logo.alt} width="430" height="161" sizes="250px" loading="lazy" decoding="async" />
+        <img src={site.logo.reversed} alt={site.logo.alt} width="320" height="76" loading="lazy" decoding="async" />
         <p>Responsive roof repair, replacement, and storm support from a local team that keeps homeowners informed.</p>
         <a class="phone-lockup light" href={site.phone.href} aria-label={`Call ${site.name} at ${site.phone.display}`}><span class="phone-icon"><i class="ph ph-phone-call" aria-hidden="true"></i></span><span><small>Roofing help is one call away</small><strong>{site.phone.display}</strong></span></a>
       </div>
@@ -430,7 +417,18 @@ const faqs = [
       toggle.setAttribute('aria-label', open ? 'Open menu' : 'Close menu');
       nav?.classList.toggle('open', !open);
     });
-    nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => { toggle?.setAttribute('aria-expanded', 'false'); nav.classList.remove('open'); }));
+    const closeMenu = () => {
+      toggle?.setAttribute('aria-expanded', 'false');
+      toggle?.setAttribute('aria-label', 'Open menu');
+      nav?.classList.remove('open');
+    };
+    nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+        closeMenu();
+        (toggle as HTMLButtonElement).focus();
+      }
+    });
 
     const reviewCarousel = document.querySelector<HTMLElement>('.testimonial-carousel');
     const reviewTrack = reviewCarousel?.querySelector<HTMLElement>('.testimonial-track');
@@ -574,22 +572,10 @@ const faqs = [
     });
 
     const callbackForm = document.querySelector<HTMLFormElement>('.callback-card');
-    const mobileActionBar = document.querySelector<HTMLElement>('.mobile-action-bar');
-    const siteFooter = document.querySelector<HTMLElement>('.site-footer');
-    const mobileActionObstructions = [callbackForm, siteFooter].filter((element): element is HTMLElement => Boolean(element));
-    if (mobileActionBar && 'IntersectionObserver' in window) {
-      const visibleObstructions = new Set<Element>();
-      const obstructionObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) visibleObstructions.add(entry.target);
-          else visibleObstructions.delete(entry.target);
-        });
-        mobileActionBar.classList.toggle('is-obscured', visibleObstructions.size > 0);
-      }, { threshold: .05 });
-      mobileActionObstructions.forEach((element) => obstructionObserver.observe(element));
+    if (callbackForm) {
+      import('../scripts/lead-form').then(({ connectLeadForm }) => {
+        connectLeadForm(callbackForm);
+      });
     }
-    import { connectLeadForm } from '../scripts/lead-form';
-    if (callbackForm) connectLeadForm(callbackForm);
-
   </script>
 </Layout>
