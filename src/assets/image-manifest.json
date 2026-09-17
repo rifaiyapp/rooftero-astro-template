@@ -1,7 +1,7 @@
 {
-  "hero-roofing.png": {
-    "width": 1920,
-    "height": 850,
+  "roofing-hero.jpg": {
+    "width": 1884,
+    "height": 834,
     "widths": [
       1280,
       1920
@@ -16,9 +16,36 @@
       750
     ]
   },
-  "about-roof-detail.jpg": {
-    "width": 1200,
-    "height": 896,
+  "roofing-repair.jpg": {
+    "width": 1451,
+    "height": 1084,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "roofing-inspection.jpg": {
+    "width": 1451,
+    "height": 1084,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "roofing-replacement.jpg": {
+    "width": 1512,
+    "height": 1040,
+    "widths": [
+      400,
+      800,
+      1200
+    ]
+  },
+  "roofing-services.jpg": {
+    "width": 1512,
+    "height": 1040,
     "widths": [
       400,
       800,
@@ -26,24 +53,24 @@
     ]
   },
   "about-roof-inspect.jpg": {
-    "width": 1200,
-    "height": 896,
+    "width": 1451,
+    "height": 1084,
     "widths": [
       400,
       800,
       1200
     ]
   },
-  "roofing-services.png": {
-    "width": 1600,
-    "height": 1100,
+  "about-roof-detail.jpg": {
+    "width": 1451,
+    "height": 1084,
     "widths": [
       400,
       800,
       1200
     ]
   },
-  "local-roofer.png": {
+  "local-roofer.jpg": {
     "width": 1024,
     "height": 1536,
     "widths": [
@@ -52,9 +79,9 @@
       1024
     ]
   },
-  "roofing-fleet.png": {
-    "width": 1920,
-    "height": 760,
+  "roofing-fleet.jpg": {
+    "width": 1993,
+    "height": 789,
     "widths": [
       640,
       1280

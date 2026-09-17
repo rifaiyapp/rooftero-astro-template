@@ -11,9 +11,9 @@ const benefits = [
 ];
 
 const services = [
-  { icon: 'ph-hammer', title: 'Roof repairs', text: 'Leaks, flashing, storm damage and missing shingles.', image: '/assets/about-roof-detail.jpg', alt: 'Roofer completing a detailed shingle repair', width: 1200, height: 896, position: 'repair' },
-  { icon: 'ph-magnifying-glass', title: 'Roof inspections', text: 'Photo-documented checks and honest repair advice.', image: '/assets/about-roof-inspect.jpg', alt: 'Roof inspector checking a residential roof', width: 1200, height: 896, position: 'inspection', featured: true },
-  { icon: 'ph-house-line', title: 'Roof replacement', text: 'Complete, code-compliant reroofing built to last.', image: '/assets/roofing-services.png', alt: 'Roofing crew installing replacement shingles', width: 1600, height: 1100, position: 'replacement' },
+  { icon: 'ph-hammer', title: 'Roof repairs', text: 'Leaks, flashing, storm damage and missing shingles.', image: '/assets/roofing-repair.jpg', alt: 'Roofer completing a detailed shingle repair', width: 1200, height: 896, position: 'repair' },
+  { icon: 'ph-magnifying-glass', title: 'Roof inspections', text: 'Photo-documented checks and honest repair advice.', image: '/assets/roofing-inspection.jpg', alt: 'Roof inspector checking a residential roof', width: 1200, height: 896, position: 'inspection', featured: true },
+  { icon: 'ph-house-line', title: 'Roof replacement', text: 'Complete, code-compliant reroofing built to last.', image: '/assets/roofing-replacement.jpg', alt: 'Roofing crew installing replacement shingles', width: 1200, height: 896, position: 'replacement' },
 ];
 
 const testimonials = [
@@ -53,10 +53,10 @@ const faqs = [
     <div class="hero-promise-canvas">
     <section class="hero" id="home" aria-labelledby="hero-title">
       <picture class="hero-media" aria-hidden="true">
-        <source media="(max-width: 820px)" type="image/avif" srcset="/assets/optimized/hero-roofing-1280.avif" />
-        <source type="image/avif" srcset="/assets/optimized/hero-roofing-1920.avif" />
-        <source media="(max-width: 820px)" type="image/webp" srcset="/assets/optimized/hero-roofing-1280.webp" />
-        <img src="/assets/optimized/hero-roofing-1920.webp" width="1920" height="850" alt="" loading="eager" fetchpriority="high" decoding="async" />
+        <source media="(max-width: 820px)" type="image/avif" srcset="/assets/optimized/roofing-hero-1280.avif" />
+        <source type="image/avif" srcset="/assets/optimized/roofing-hero-1920.avif" />
+        <source media="(max-width: 820px)" type="image/webp" srcset="/assets/optimized/roofing-hero-1280.webp" />
+        <img src="/assets/optimized/roofing-hero-1920.webp" width="1920" height="850" alt="" loading="eager" fetchpriority="high" decoding="async" />
       </picture>
       <div class="hero-shade"></div>
       <div class="shell hero-inner">
@@ -145,7 +145,7 @@ const faqs = [
     <section class="about shell" id="about" aria-labelledby="about-title">
       <div class="about-media" aria-label={`${site.name} roofing services in action`}>
         <div class="about-media-card main-card">
-          <ResponsiveImage src="/assets/roofing-services.png" alt="Professional roofing crew installing shingles with safety harnesses" width="1600" height="1100" loading="lazy" decoding="async" />
+          <ResponsiveImage src="/assets/roofing-services.jpg" alt="Professional roofing crew installing shingles with safety harnesses" width="1600" height="1100" loading="lazy" decoding="async" />
         </div>
         <div class="about-media-card inspect-card">
           <ResponsiveImage src="/assets/about-roof-inspect.jpg" alt="Roof inspector conducting detailed slope and flashing assessment" width="1200" height="896" loading="lazy" decoding="async" />
@@ -340,7 +340,7 @@ const faqs = [
         </div>
 
         <div class="roofing-faq-media">
-          <ResponsiveImage src="/assets/local-roofer.png" alt={`${site.name} local roofer`} width="1024" height="1536" loading="lazy" decoding="async" />
+          <ResponsiveImage src="/assets/local-roofer.jpg" alt={`${site.name} local roofer`} width="1024" height="1536" loading="lazy" decoding="async" />
         </div>
       </div>
     </section>
@@ -363,7 +363,7 @@ const faqs = [
 
         <div class="roof-check-media">
           <div class="roof-check-photo">
-            <ResponsiveImage src="/assets/roofing-fleet.png" alt={`${site.name} service vehicles ready for a residential roof inspection`} width="1920" height="760" sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1200px) 50vw, 700px" loading="lazy" decoding="async" />
+            <ResponsiveImage src="/assets/roofing-fleet.jpg" alt={`${site.name} service vehicles ready for a residential roof inspection`} width="1920" height="760" sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1200px) 50vw, 700px" loading="lazy" decoding="async" />
           </div>
           <div class="roof-check-media-badge" aria-hidden="true">
             <span><i class="ph-fill ph-shield-check"></i></span>

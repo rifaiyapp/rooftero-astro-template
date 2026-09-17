@@ -45,10 +45,6 @@
   content: "\e092";
 }
 
-.ph.ph-caret-down:before {
-  content: "\e136";
-}
-
 .ph.ph-caret-left:before {
   content: "\e138";
 }
@@ -75,10 +71,6 @@
 
 .ph.ph-house-line:before {
   content: "\e2c4";
-}
-
-.ph.ph-list:before {
-  content: "\e2f0";
 }
 
 .ph.ph-magnifying-glass:before {
@@ -162,10 +154,6 @@
   content: "\e092";
 }
 
-.ph-fill.ph-caret-down:before {
-  content: "\e136";
-}
-
 .ph-fill.ph-caret-left:before {
   content: "\e138";
 }
@@ -192,10 +180,6 @@
 
 .ph-fill.ph-house-line:before {
   content: "\e2c4";
-}
-
-.ph-fill.ph-list:before {
-  content: "\e2f0";
 }
 
 .ph-fill.ph-magnifying-glass:before {

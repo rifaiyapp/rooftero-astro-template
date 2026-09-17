@@ -1,0 +1,6 @@
+{
+  "name": "Rooftero — Roofing & Restoration",
+  "description": "Rooftero is a roofing and restoration Astro template for fast, dependable roof repair, replacement, inspections, and storm response services.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

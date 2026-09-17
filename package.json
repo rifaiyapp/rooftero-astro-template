@@ -9,7 +9,7 @@
     "npm": "11.x"
   },
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --host 0.0.0.0 --port 3000",
     "sync:destination": "node scripts/sync-destination.mjs",
     "prebuild": "node scripts/sync-destination.mjs",
     "build": "astro build",

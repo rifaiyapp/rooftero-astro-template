@@ -2,11 +2,22 @@
 import sharp from 'sharp';
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 await mkdir('public/assets/optimized',{recursive:true});
-const widths={ 'hero-roofing.png':[1280,1920], 'rooflume-logo.png':[250,500,750], 'about-roof-detail.jpg':[400,800,1200], 'about-roof-inspect.jpg':[400,800,1200], 'roofing-services.png':[400,800,1200], 'local-roofer.png':[400,800,1024], 'roofing-fleet.png':[640,1280] };
+const widths={
+  'roofing-hero.jpg':[1280,1920],
+  'rooflume-logo.png':[250,500,750],
+  'roofing-repair.jpg':[400,800,1200],
+  'roofing-inspection.jpg':[400,800,1200],
+  'roofing-replacement.jpg':[400,800,1200],
+  'roofing-services.jpg':[400,800,1200],
+  'about-roof-inspect.jpg':[400,800,1200],
+  'about-roof-detail.jpg':[400,800,1200],
+  'local-roofer.jpg':[400,800,1024],
+  'roofing-fleet.jpg':[640,1280]
+};
 const manifest={};
 for(const [file,sizes] of Object.entries(widths)){
  const name=file.replace(/\.[^.]+$/,''); const meta=await sharp('public/assets/'+file).metadata();manifest[file]={width:meta.width,height:meta.height,widths:sizes};
- for(const width of sizes)for(const format of ['avif','webp'])await sharp('public/assets/'+file).resize({width,withoutEnlargement:true}).toFormat(format,{quality:name==='rooflume-logo'?85:format==='avif'?65:82,effort:4}).toFile(`public/assets/optimized/${name}-${width}.${format}`);
+ for(const width of sizes)for(const format of ['avif','webp'])await sharp('public/assets/'+file).resize({width,withoutEnlargement:name!=='roofing-hero'}).toFormat(format,{quality:name==='rooflume-logo'?85:format==='avif'?65:82,effort:4}).toFile(`public/assets/optimized/${name}-${width}.${format}`);
 }
 await writeFile('src/assets/image-manifest.json',JSON.stringify(manifest,null,2));
 // Keep the installed icon glyphs and metrics, but only ship selectors used by this page.
