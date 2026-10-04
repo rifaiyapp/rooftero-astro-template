@@ -11,3 +11,7 @@ const set = (format: string) => asset.widths.map(w => `/assets/optimized/${stem}
   <source type="image/avif" srcset={set('avif')} sizes={sizes} />
   <img src={`/assets/optimized/${stem}-${asset.widths.at(-1)}.webp`} srcset={set('webp')} sizes={sizes} alt={alt} width={width ?? asset.width} height={height ?? asset.height} loading={loading} decoding={decoding} fetchpriority={fetchpriority} />
 </picture>
+
+<style>
+  .responsive-picture { display: contents; }
+</style>
