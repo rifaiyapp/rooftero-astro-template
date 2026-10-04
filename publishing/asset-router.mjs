@@ -25,7 +25,6 @@ function leadResponse(status, success = false, extraHeaders = {}) {
   });
 }
 
-// Count actual streamed bytes as Content-Length can be absent or inaccurate.
 async function readLeadBody(request) {
   if (Number(request.headers.get("content-length")) > MAX_LEAD_BYTES) {
     throw new RangeError();
@@ -75,12 +74,12 @@ async function submitLead(request, env, url) {
   } catch (error) {
     return leadResponse(error instanceof RangeError ? 413 : 400);
   }
-  if (typeof env.LEAD_GATEWAY?.fetch !== "function") return leadResponse(503);
+  const payload = JSON.parse(body);
+  if (![payload.project_id, payload.form_id].every(id => typeof id === "string" && id.trim()) ||
+      typeof env.LEAD_GATEWAY?.fetch !== "function") return leadResponse(503);
 
   try {
     const headers = new Headers({ "Content-Type": "application/json", Accept: "application/json" });
-    // Preserve browser context and Cloudflare's client IP for gateway spam checks.
-    // Do not forward cookies, authorization or client-supplied forwarding headers.
     for (const name of ["origin", "referer", "user-agent", "cf-connecting-ip"]) {
       const value = request.headers.get(name);
       if (value) headers.set(name, value);
@@ -88,7 +87,6 @@ async function submitLead(request, env, url) {
     const response = await env.LEAD_GATEWAY.fetch(new Request("https://lead-service.internal/v1/submit", {
       method: "POST", headers, body, redirect: "manual",
     }));
-    // Never relay gateway bodies, redirects or headers to the browser.
     if (!response.ok) {
       await response.body?.cancel();
       return leadResponse(response.status === 429 ? 429 : 502);
@@ -100,9 +98,6 @@ async function submitLead(request, env, url) {
   }
 }
 
-// Read on every request: dashboard text (JSON) and JSON bindings both work
-// without rebuilding Astro. Invalid configuration approves no nested mounts;
-// the root deployment remains available and no partial list is accepted.
 function runtimeMounts(value) {
   try {
     const paths = value === undefined ? [] : typeof value === "string" ? JSON.parse(value) : value;
@@ -124,9 +119,6 @@ async function notFound(request, env, url, prefix) {
   pageUrl.pathname = "/404.html";
   const pageRequest = new Request(request.url, { method: "GET" });
   let page = await fetchAsset(pageRequest, env, pageUrl);
-  // ASSETS applies HTML canonicalization even to internal fetches, commonly
-  // /404.html -> /404. Follow only this asset's canonical forms through the
-  // binding; never redirect the browser or re-enter the public Worker router.
   const visited = new Set([pageUrl.pathname]);
   while ([301, 302, 303, 307, 308].includes(page.status) && visited.size < 4) {
     let target;
@@ -153,7 +145,7 @@ async function notFound(request, env, url, prefix) {
   for (const name of ["location", "content-length", "etag"]) headers.delete(name);
   let body = null;
   if (custom) {
-    body = prefixLocalAssets(await page.text(), prefix)
+    body = prefixLocalNavigation(prefixLocalAssets(await page.text(), prefix), prefix)
       .replace(/href="[^"]*"(?= data-runtime-mount-home(?:[ =>]))/g, `href="${prefix}/"`);
   } else {
     await page.body?.cancel();
@@ -162,9 +154,6 @@ async function notFound(request, env, url, prefix) {
 }
 
 function* mountedAssets(pathname, approvedPrefix) {
-  // Cloudflare does not pass the matched route prefix to the Worker. Recognize
-  // reserved suffixes first, then try static file suffixes at segment boundaries.
-  // Missing files/API paths must never fall through to the landing page.
   const reserved = /\/(?:_astro|assets|api)(?:\/|$)/.exec(pathname);
   if (reserved) {
     if (reserved.index > 0) {
@@ -184,7 +173,6 @@ function* mountedAssets(pathname, approvedPrefix) {
       yield { prefix: pathname.slice(0, slash), pathname: pathname.slice(slash) };
     }
   }
-  // Only a configured mount root may fall back to the landing page.
   const prefix = resolveRuntimeMount(pathname).slice(0, -1);
   if (prefix && prefix === approvedPrefix) {
     yield { prefix, pathname: "/" };
@@ -193,10 +181,7 @@ function* mountedAssets(pathname, approvedPrefix) {
 
 function withCacheHeaders(response, pathname) {
   const headers = new Headers(response.headers);
-
-  const hashedAsset =
-    /^\/_astro\/.+[.-][A-Za-z0-9_-]{8,}\.[A-Za-z0-9]+$/.test(pathname);
-
+  const hashedAsset = /^\/_astro\/.+[.-][A-Za-z0-9_-]{8,}\.[A-Za-z0-9]+$/.test(pathname);
   headers.set(
     "Cache-Control",
     response.status >= 400
@@ -205,7 +190,6 @@ function withCacheHeaders(response, pathname) {
         ? "public, max-age=31536000, immutable"
         : REVALIDATE
   );
-
   return new Response(response.body, {
     status: response.status,
     statusText: response.statusText,
@@ -231,44 +215,45 @@ function isRootAssetRedirect(response, url) {
 
 function prefixLocalAssets(text, prefix) {
   if (!prefix) return text;
-
   return text
     .replaceAll(`"/_astro/`, `"${prefix}/_astro/`)
     .replaceAll(`'/_astro/`, `'${prefix}/_astro/`)
     .replaceAll(` /_astro/`, ` ${prefix}/_astro/`)
     .replaceAll(`(/_astro/`, `(${prefix}/_astro/`)
-
     .replaceAll(`"/assets/`, `"${prefix}/assets/`)
     .replaceAll(`'/assets/`, `'${prefix}/assets/`)
     .replaceAll(` /assets/`, ` ${prefix}/assets/`)
     .replaceAll(`(/assets/`, `(${prefix}/assets/`)
-
     .replaceAll(`"/favicon`, `"${prefix}/favicon`)
     .replaceAll(`'/favicon`, `'${prefix}/favicon`)
     .replaceAll(`(/favicon`, `(${prefix}/favicon`);
 }
 
+function prefixLocalNavigation(text, prefix) {
+  if (!prefix) return text;
+  return text.replace(
+    /(<a\b[^>]*\bhref=)(["'])\/(?!\/)([^"']*)\2/gi,
+    (match, before, quote, rest) => {
+      const path = "/" + rest;
+      if (path === prefix || path.startsWith(prefix + "/")) return match;
+      return before + quote + prefix + path + quote;
+    }
+  );
+}
+
 async function rewriteResponse(response, prefix) {
-  if (!prefix || response.status !== 200) {
-    return response;
-  }
-
+  if (!prefix || response.status !== 200) return response;
   const contentType = response.headers.get("content-type") || "";
-
-  const rewriteable =
-    contentType.includes("text/html") ||
-    contentType.includes("text/css");
-
-  if (!rewriteable) {
-    return response;
+  const rewriteable = contentType.includes("text/html") || contentType.includes("text/css");
+  if (!rewriteable) return response;
+  let body = prefixLocalNavigation(prefixLocalAssets(await response.text(), prefix), prefix)
+    .replace(/href="[^"]*"(?= data-runtime-mount-home(?:[ =>]))/g, `href="${prefix}/"`);
+  if (contentType.includes("text/html")) {
+    body = body.replace(/<html(\s|>)/i, `<html data-runtime-mount="${prefix}/"$1`);
   }
-
-  const body = prefixLocalAssets(await response.text(), prefix);
-
   const headers = new Headers(response.headers);
   headers.delete("content-length");
   headers.delete("etag");
-
   return new Response(body, {
     status: response.status,
     statusText: response.statusText,
@@ -276,75 +261,130 @@ async function rewriteResponse(response, prefix) {
   });
 }
 
+function isDocumentPath(pathname) {
+  if (/^\/(?:assets|_astro|api)(?:\/|$)/.test(pathname)) return false;
+  return !/\/[^/]+\.[^/]+$/.test(pathname) || /\.html?$/i.test(pathname);
+}
+
+function isRedirect(response) {
+  return [301, 302, 303, 307, 308].includes(response.status);
+}
+
+function redirectTarget(response, url) {
+  const location = response.headers.get("location");
+  if (!location) return null;
+  try {
+    const target = new URL(location, url);
+    if (target.origin !== url.origin || target.username || target.password) return null;
+    return target;
+  } catch {
+    return null;
+  }
+}
+
+function mountedUrl(originalUrl, relativePath) {
+  const url = new URL(originalUrl);
+  url.pathname = relativePath;
+  return url;
+}
+
+async function confirmedSlashRedirect(request, env, originalUrl, relativePath) {
+  if (relativePath === "/" || relativePath.endsWith("/") || /\.html?$/i.test(relativePath)) return null;
+  const candidateUrl = mountedUrl(originalUrl, relativePath + "/");
+  const candidate = await fetchAsset(request, env, candidateUrl);
+  const isHtml = candidate.status === 200 && candidate.headers.get("content-type")?.includes("text/html");
+  await candidate.body?.cancel();
+  if (!isHtml) return null;
+  return withCacheHeaders(new Response(null, {
+    status: 308,
+    headers: { ...SECURITY_HEADERS, Location: originalUrl.pathname + "/" + originalUrl.search },
+  }), originalUrl.pathname);
+}
+
 export default {
   async fetch(request, env) {
     const originalUrl = new URL(request.url);
     const mounts = runtimeMounts(env.RUNTIME_MOUNT_PATHS);
-    const approvedBase = mounts.find(base => originalUrl.pathname === base.slice(0, -1) || originalUrl.pathname.startsWith(base));
+    const approvedBase = mounts.find(base =>
+      originalUrl.pathname === base.slice(0, -1) || originalUrl.pathname.startsWith(base)
+    ) || "/";
     const approvedPrefix = approvedBase.slice(0, -1);
     const relativePath = originalUrl.pathname.slice(approvedPrefix.length) || "/";
 
-    // Dispatch before ASSETS so every mount uses the same fail-closed handler.
     if (/\/api\/lead$/.test(originalUrl.pathname)) {
       if (relativePath !== "/api/lead") return leadResponse(404);
       return submitLead(request, env, originalUrl);
     }
+    if (/^\/api(?:\/|$)/.test(relativePath)) return leadResponse(404);
 
-    // Reject unknown documents before ASSETS can redirect or serve an HTML
-    // fallback. File and reserved asset paths retain the existing lookup flow.
-    const documentRoute = ["/", "/index.html", "/thank-you", "/thank-you/"].includes(relativePath);
-    const assetRoute = /^\/(?:assets|_astro)(?:\/|$)/.test(relativePath) || /\/[^/]+\.[^/]+$/.test(relativePath);
-    if (!documentRoute && (!assetRoute || /\.html?\/?$/i.test(relativePath) || /^\/api(?:\/|$)/.test(relativePath))) {
-      return notFound(request, env, originalUrl, approvedPrefix);
-    }
-
-    const mountBase = resolveRuntimeMount(originalUrl.pathname);
     const mountRootWithoutSlash = approvedPrefix && originalUrl.pathname === approvedPrefix;
     if ((request.method === "GET" || request.method === "HEAD") && mountRootWithoutSlash) {
-      // Canonicalize before ASSETS can redirect an unknown path to the origin
-      // root. An origin-relative Location preserves the host and exact query.
       return withCacheHeaders(new Response(null, {
         status: 308,
-        headers: { ...SECURITY_HEADERS, Location: mountBase + originalUrl.search },
+        headers: { ...SECURITY_HEADERS, Location: approvedBase + originalUrl.search },
       }), originalUrl.pathname);
     }
 
-    // Normal root deployment first.
-    let response = await fetchAsset(request, env, originalUrl);
-
-    // The asset binding may canonicalize an unknown extensionless path to /.
-    // Resolve that mount against the root asset internally instead of letting
-    // its Location header take the browser outside the Worker's route.
-    if ((request.method === "GET" || request.method === "HEAD") && isRootAssetRedirect(response, originalUrl)) {
-      const mount = [...mountedAssets(originalUrl.pathname, approvedPrefix)].find(asset => asset.prefix === approvedPrefix && asset.pathname === "/");
-      if (mount) {
-        const rootUrl = new URL(originalUrl);
-        rootUrl.pathname = "/";
-        await response.body?.cancel();
-        response = await rewriteResponse(await fetchAsset(request, env, rootUrl), mount.prefix);
-        return withCacheHeaders(response, "/");
-      }
-    }
-
-    if (response.status !== 404) {
+    if (request.method !== "GET" && request.method !== "HEAD") {
+      const response = await fetchAsset(request, env, originalUrl);
       return withCacheHeaders(response, originalUrl.pathname);
     }
 
-    if (request.method === "GET" || request.method === "HEAD") {
-      for (const mount of mountedAssets(originalUrl.pathname, approvedPrefix)) {
-        if (mount.prefix !== approvedPrefix) continue;
-        const rewrittenUrl = new URL(originalUrl);
-        rewrittenUrl.pathname = mount.pathname;
-        const candidate = await fetchAsset(request, env, rewrittenUrl);
-        if (candidate.status === 404) {
-          await candidate.body?.cancel();
-          continue;
-        }
-        await response.body?.cancel();
-        response = await rewriteResponse(candidate, mount.prefix);
-        return withCacheHeaders(response, mount.pathname);
+    const documentRoute = isDocumentPath(relativePath);
+    const assetUrl = approvedPrefix ? mountedUrl(originalUrl, relativePath) : originalUrl;
+
+    if (approvedPrefix && relativePath === "/thank-you") {
+      const thankYouUrl = mountedUrl(originalUrl, "/thank-you/");
+      const thankYou = await fetchAsset(request, env, thankYouUrl);
+      if (thankYou.status === 200) {
+        return withCacheHeaders(await rewriteResponse(thankYou, approvedPrefix), "/thank-you/");
       }
+      await thankYou.body?.cancel();
+      return notFound(request, env, originalUrl, approvedPrefix);
     }
-    return withCacheHeaders(response, originalUrl.pathname);
+
+    let response = await fetchAsset(request, env, assetUrl);
+
+    if (!documentRoute) {
+      if (approvedPrefix && response.status === 200) {
+        response = await rewriteResponse(response, approvedPrefix);
+      }
+      return withCacheHeaders(response, relativePath);
+    }
+
+    if (isRootAssetRedirect(response, assetUrl) && relativePath !== "/") {
+      await response.body?.cancel();
+      const redirect = await confirmedSlashRedirect(request, env, originalUrl, relativePath);
+      if (redirect) return redirect;
+      return notFound(request, env, originalUrl, approvedPrefix);
+    }
+
+    if (response.status === 404) {
+      await response.body?.cancel();
+      const redirect = await confirmedSlashRedirect(request, env, originalUrl, relativePath);
+      if (redirect) return redirect;
+      return notFound(request, env, originalUrl, approvedPrefix);
+    }
+
+    if (isRedirect(response) && approvedPrefix) {
+      const target = redirectTarget(response, assetUrl);
+      if (!target) {
+        await response.body?.cancel();
+        return notFound(request, env, originalUrl, approvedPrefix);
+      }
+      if (target.pathname === "/" && relativePath !== "/") {
+        await response.body?.cancel();
+        return notFound(request, env, originalUrl, approvedPrefix);
+      }
+      const location = approvedPrefix + target.pathname + target.search + target.hash;
+      const headers = new Headers(response.headers);
+      headers.set("Location", location);
+      return withCacheHeaders(new Response(null, { status: response.status, headers }), originalUrl.pathname);
+    }
+
+    if (approvedPrefix && response.status === 200) {
+      response = await rewriteResponse(response, approvedPrefix);
+    }
+    return withCacheHeaders(response, relativePath);
   },
 };
