@@ -1,0 +1,24 @@
+---
+import { site } from '../config/site';
+
+interface Props {
+  homeHref?: string;
+  ctaHref?: string;
+}
+
+const {
+  homeHref = '/',
+  ctaHref = '/#callback',
+} = Astro.props;
+---
+
+<div class="topbar shell">
+  <a class="brand" href={homeHref} aria-label={`${site.name} home`}>
+    <img src={site.logo.src} alt={site.logo.alt} width="320" height="76" loading="eager" />
+  </a>
+  <a class="phone-lockup header-phone" href={site.phone.href} aria-label={`Call ${site.name} at ${site.phone.display}`}>
+    <span class="phone-icon"><i class="ph-fill ph-phone-call" aria-hidden="true"></i></span>
+    <span class="phone-copy"><small>Book Same-Day Service</small><strong>Call {site.phone.display}</strong></span>
+  </a>
+  <a class="button button-gold header-cta" href={ctaHref}>{site.primaryCta}</a>
+</div>
