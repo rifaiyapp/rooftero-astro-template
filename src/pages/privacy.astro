@@ -1,0 +1,49 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { site } from '../config/site';
+---
+
+<LegalLayout
+  title="Privacy Policy"
+  heading="Privacy Policy"
+  description={`Privacy information for ${site.name}, including how website inquiries and technical data are handled.`}
+>
+  <h2>Overview</h2>
+  <p>This Privacy Policy explains how information may be collected and used when you visit this website or submit a roofing inquiry. Rooftero is currently a fictional demonstration brand; a purchaser must replace the demo contact details, service providers, retention periods, and jurisdiction-specific disclosures before using this template for a real business.</p>
+
+  <h2>Information you provide</h2>
+  <p>When you submit a request, the site may collect information you choose to provide, such as your name, telephone number, email address, ZIP code, service needs, and message. Do not submit sensitive personal information through the general inquiry form.</p>
+
+  <h2>Technical and referral information</h2>
+  <p>The website may process limited technical information needed to deliver and protect the service, such as the page URL, referrer, browser or device information, IP-derived request data, and campaign parameters when present. This can include UTM values and advertising click identifiers used for attribution.</p>
+
+  <h2>How information is used</h2>
+  <ul>
+    <li>Respond to quote, inspection, repair, or service inquiries.</li>
+    <li>Route a request to the appropriate business or service workflow.</li>
+    <li>Protect forms and infrastructure from spam, abuse, and automated submissions.</li>
+    <li>Maintain, troubleshoot, and improve website reliability and performance.</li>
+    <li>Measure marketing attribution when the production business enables it.</li>
+    <li>Comply with applicable legal obligations when required.</li>
+  </ul>
+
+  <h2>Service providers</h2>
+  <p>Information may be processed by hosting, form-routing, automation, communications, analytics, CRM, or other vendors configured by the website owner. The demonstration template uses Cloudflare-based website infrastructure and a private lead-routing workflow; buyers should document the actual providers enabled for their production site.</p>
+
+  <h2>Data retention and security</h2>
+  <p>The production website owner should keep personal information only as long as reasonably necessary for the purposes described in its final policy, contractual obligations, dispute handling, and applicable law. Reasonable technical and organizational safeguards should be used, but no internet service can guarantee absolute security.</p>
+
+  <h2>Your choices and rights</h2>
+  <p>Depending on where you live, you may have rights relating to access, correction, deletion, objection, restriction, portability, or withdrawal of consent. The production business should provide a working privacy contact and procedures appropriate to its jurisdiction.</p>
+
+  <h2>Children</h2>
+  <p>This general roofing-service website is not intended for children, and the inquiry form is not designed to knowingly collect personal information from children.</p>
+
+  <h2>Contact</h2>
+  <p>For this demonstration, privacy inquiries can be directed to <a href={`mailto:${site.legal.privacyEmail}`}>{site.legal.privacyEmail}</a>. Replace this address before a client launch.</p>
+
+  <h2>Policy changes</h2>
+  <p>The production website owner may update this policy as its services, vendors, or legal obligations change. The “Last updated” date should be revised when material changes are made.</p>
+
+  <p class="legal-note"><strong>Template notice:</strong> this page is a practical starting point, not a substitute for jurisdiction-specific legal review. A buyer should tailor it to the real business and technologies used before publishing an indexable production website.</p>
+</LegalLayout>
