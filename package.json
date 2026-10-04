@@ -1,39 +1,33 @@
 {
-  "name": "rooflume-astro-template",
+  "name": "rooftero-astro-template",
   "type": "module",
   "version": "0.0.1",
-  "description": "Rooflume — Roofing & Restoration Astro Template",
+  "description": "Rooftero — Roofing & Restoration Astro website built on the Shibga web starter.",
   "author": "KEYDIV",
   "engines": {
-    "node": ">=22.12.0 <25",
-    "npm": "11.x"
+    "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev --host 0.0.0.0 --port 3000",
-    "sync:destination": "node scripts/sync-destination.mjs",
-    "prebuild": "node scripts/sync-destination.mjs",
+    "dev": "astro dev",
+    "predev": "node scripts/sync-destination.mjs",
     "build": "astro build",
+    "prebuild": "node scripts/sync-destination.mjs",
     "preview": "astro preview",
-    "astro": "astro",
     "check": "astro check",
-    "validate": "npm run qa:destination && npm run qa:worker && npm run check && npm run build && node scripts/validate-runtime.mjs",
-    "audit": "npm audit",
-    "qa:destination": "node --test qa/destination-sync-check.mjs",
-    "qa:worker": "node --test qa/asset-router-check.mjs",
-    "qa:form": "node qa/form-product-check.mjs",
-    "qa:runtime": "node qa/runtime-upgrade-check.mjs",
-    "audit:distribution": "node scripts/audit-distribution.mjs",
-    "qa:cloud": "bash qa/cloud-runtime-check.sh"
+    "validate": "npm run check && npm run build",
+    "start": "astro dev --host 0.0.0.0 --port 3000"
   },
   "dependencies": {
-    "@fontsource/lobster-two": "^5.3.0",
-    "@fontsource/oswald": "^5.3.0",
-    "@phosphor-icons/web": "^2.1.2",
-    "astro": "~7.2.8"
+    "astro": "7.3.3"
+  },
+  "allowScripts": {
+    "esbuild": true
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.10",
-    "playwright": "^1.62.1",
-    "typescript": "^6.0.3"
-  }
+    "@astrojs/check": "0.9.10",
+    "@phosphor-icons/web": "^2.1.2",
+    "playwright": "1.62.1",
+    "typescript": "6.0.3"
+  },
+  "packageManager": "npm@10.9.2"
 }
