@@ -1,43 +1,67 @@
-# Rooflume — Roofing & Restoration Astro Template
+# Rooftero — Roofing & Restoration Astro Template
 
-Rooflume is a premium responsive roofing/restoration landing-page template by KEYDIV, with local imagery, self-hosted fonts, mobile navigation, testimonial carousel, accessible FAQ and inspection form. Rooflume is a fictional demo brand; replace demo business claims with verified customer content before launch.
+Rooftero is a premium responsive roofing/restoration landing-page template by KEYDIV. The approved visual direction is documented in `DESIGN.md`; the project uses the `shibga-web-starter` foundation for static Astro builds, Cloudflare deployment, runtime mounting and lead routing.
 
-This product carries Keydiv Runtime v1.0.0, the current stable baseline, with factoryVersion 4.7 and uiRuntimeVersion 2 tracked separately in project.config.json. Use your own GitHub, Codex Cloud and Cloudflare accounts without installing the author's local factory skill.
+## Development
 
-**The form is non-sending by default.** It validates the existing fields and clearly reports that no request was sent. Configure your own service before collecting leads.
-
-## Local development
-
-Use Node 22.12+ or Node 24 (below 25), with npm 11. .nvmrc prefers Node 24.
-
-```sh
-npm ci
-npm run dev -- --background
-```
-
-Open Astro's displayed local URL. Manage the server with `npm run astro -- dev status`, `npm run astro -- dev logs` and `npm run astro -- dev stop`.
-
-```sh
+```bash
+npm install
+npm run dev
 npm run validate
-npm audit
-npm run build
 ```
 
-Output is dist. Browser QA uses npm run qa:form and npm run qa:runtime; install Chromium with `npx playwright install chromium` first. npm run audit:distribution checks portability. npm run qa:cloud tests Cloud scripts in an isolated Bash fixture with no real credentials or network (Git Bash on Windows).
+Keep deployment and lead infrastructure unchanged during normal design/content work. Website files, content and assets may be customized for the real client.
 
-## Make it yours
+## One-file business configuration
 
-- [Customization](docs/CUSTOMIZATION.md): common config, content, assets and Codex prompts.
-- [Codex Cloud setup](docs/CODEX-CLOUD-SETUP.md): your repository/environment and scoped CODEX_GITHUB_TOKEN.
-- [Form integration](docs/FORM-INTEGRATION.md): demo/live modes and customer service contract.
-- [Customer setup](docs/CUSTOMER-SETUP.md): your Cloudflare account, domain and launch profile.
-- [Framework upgrade policy](docs/CUSTOMER-SETUP.md#framework-upgrade-policy): preserve the stable runtime and verify upgrades on a branch.
-- [Distribution boundary](docs/DISTRIBUTION.md): current-source export, historical settings and licensing.
+Start with `src/config/site.ts`. Replace the demo values with verified client information:
 
-DESIGN.md records the approved appearance. Codex follows AGENTS.md and docs/KEYDIV-UI-DESIGN.md. Static Astro, plain CSS and minimal scripts keep the template portable; no backend or tracking is bundled.
+- business/site name;
+- production `url`;
+- phone and email;
+- service area;
+- logo/favicon assets if rebranded;
+- SEO title, description and social image;
+- privacy contact;
+- `seo.indexable` launch switch.
 
-The master remains private-demo (noindex). Choose a launch profile in the customer copy. The editable Worker name in wrangler.jsonc binds no account. Authenticate to your own Cloudflare account, build and deploy with `npx wrangler deploy`; Wrangler is not a project dependency.
+The demo intentionally ships with `seo.indexable: false`. Set it to `true` only after the production domain, contact details, content, legal pages, lead routing and business claims have been verified. The robots route, sitemap and page metadata then stay synchronized from the same configuration.
 
-## License
+## Lead form
 
-All rights reserved. Commercial terms are supplied with purchase. Preserve required third-party notices and confirm asset rights for your intended use.
+The browser submits leads to the site Worker at `/api/lead`; the Worker forwards through the private `LEAD_GATEWAY` service binding. Public project/form IDs are generated from the destination repository by `scripts/sync-destination.mjs`.
+
+Before a real launch:
+
+1. register the production project/form/origin in the lead-routing workflow;
+2. confirm the Cloudflare `LEAD_GATEWAY` service binding;
+3. run a deliberate end-to-end test lead;
+4. verify the thank-you page and downstream CRM/notification delivery.
+
+Do not place webhook URLs, API keys or gateway secrets in browser code.
+
+## SEO and marketing launch checklist
+
+- Replace every fictional/demo review, rating, license, certification, warranty, response-time and service-area claim with verified client information.
+- Confirm one clear H1, conversion CTA, phone number and form path.
+- Set the final domain in `site.url` and enable `seo.indexable` only when ready.
+- Check `/robots.txt` and `/sitemap.xml` after deployment.
+- Add the sitemap in Google Search Console and Bing Webmaster Tools when applicable.
+- Add GA4, call tracking, advertising pixels or consent tooling only when the client actually needs them; update the privacy/cookie disclosures when those technologies are enabled.
+- Keep legal pages tailored to the real business and jurisdiction. The included legal copy is a practical template, not jurisdiction-specific legal advice.
+- Keep the thank-you and 404 pages non-indexable.
+
+## Performance and accessibility
+
+Rooftero uses self-hosted fonts, static Astro output, responsive AVIF/WebP image sets, explicit media dimensions, lazy loading below the fold and a high-priority hero image. Preserve those patterns when replacing imagery.
+
+After meaningful changes, test desktop and mobile layouts, keyboard navigation, forms, FAQ, carousel controls, reduced-motion behavior and Lighthouse/PageSpeed. Avoid adding unnecessary third-party JavaScript because it can materially affect Core Web Vitals.
+
+## Legal pages included
+
+- `/privacy/`
+- `/terms/`
+- `/accessibility/`
+- `/cookies/`
+
+Replace the demonstration contacts and tailor the policies before publishing for a real contractor.
