@@ -1,20 +1,11 @@
 {
   "name": "rooftero-astro-template",
-  "factoryVersion": "4.7",
-  "runtimeVersion": "1.0.0",
-  "uiRuntimeVersion": "2",
+  "concept": "Rooftero Roofing Template",
   "profile": "private-demo",
-  "purpose": "Premium roofing and restoration Astro template for commercial resale and future client customization",
   "approvedDesign": true,
   "publishing": {
     "branch": "main",
-    "outputDirectory": "dist",
-    "intendedDomain": ""
-  },
-  "leadService": {
-    "mode": "demo",
-    "configuration": "src/config/lead.ts",
-    "customerOwned": true
+    "outputDirectory": "dist"
   },
   "deployment": {
     "basePath": "/"
