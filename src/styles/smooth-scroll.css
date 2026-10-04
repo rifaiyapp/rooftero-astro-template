@@ -1,0 +1,4 @@
+/* The JavaScript scroll runtime owns motion. Keep native CSS scrolling instantaneous so animation frames do not stack. */
+html {
+  scroll-behavior: auto;
+}
