@@ -1,7 +1,5 @@
 # build output
 dist/
-
-# generated types
 .astro/
 
 # dependencies
@@ -15,40 +13,15 @@ pnpm-debug.log*
 
 # environment variables
 .env
+.env.production
 .env.*
 !.env.example
 
-# macOS-specific files
-.DS_Store
-
-# jetbrains setting folder
-.idea/
-
-# Playwright reports and temporary test output
-playwright-report/
-playwright/.cache/
-test-results/
-blob-report/
-qa/*.png
-qa/*comparison*.html
-*.log
+# local/runtime files
 tmp/
-.temp/
-
-# Internal QA documentation and browser artifacts (keep QA scripts)
-/design-qa.md
-qa/**/*.md
-qa/**/*.png
-qa/**/*.jpg
-qa/**/*.jpeg
-qa/**/*.webp
-qa/**/*.html
-qa/**/*.json
-qa/**/*.zip
-qa/**/*.webm
-/playwright/.auth/
-/.playwright-mcp/
-/browser-output/
-/test-output/
-
 .wrangler/
+.dev.vars*
+
+# OS / IDE
+.DS_Store
+.idea/
