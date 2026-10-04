@@ -1,5 +1,4 @@
-import { leadConfig, hasLiveLeadService } from '../config/lead';
-import { site } from '../config/site';
+import { leadConfig, hasLeadService } from '../config/lead';
 import { resolveRuntimeMount } from '../utils/runtime-mount.mjs';
 
 export function connectLeadForm(form: HTMLFormElement) {
@@ -12,7 +11,6 @@ export function connectLeadForm(form: HTMLFormElement) {
   let submitting = false;
   let submitted = false;
 
-  // Keep native email/ZIP constraints, and allow common phone formatting.
   const validate = () => {
     for (const input of form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input, textarea')) {
       input.setCustomValidity('');
@@ -38,26 +36,23 @@ export function connectLeadForm(form: HTMLFormElement) {
       return;
     }
 
-    if (!hasLiveLeadService()) {
-      status.textContent = leadConfig.mode === 'demo'
-        ? 'Demo only. Your request was not sent.'
-        : 'Online requests are not configured. Please call us.';
+    if (!hasLeadService()) {
+      status.textContent = 'Online requests are not configured.';
       return;
     }
 
-    // Capture the submission's mount once, including across the delayed redirect.
-    const mountBase = resolveRuntimeMount(window.location.pathname);
+    const runtimeMount = document.documentElement.dataset.runtimeMount || '/';
+    const mountBase = resolveRuntimeMount(runtimeMount);
     const data = new FormData(form);
-    // Read every successful named control; preserve repeated names as arrays.
     const fields: Record<string, FormDataEntryValue | FormDataEntryValue[]> = Object.create(null);
     for (const key of new Set(data.keys())) {
-      if (key === 'website') continue;
       const values = data.getAll(key);
       fields[key] = values.length === 1 ? values[0] : values;
     }
+    if (!fields.form_source) fields.form_source = 'homepage-roof-inspection';
+
     const params = new URLSearchParams(window.location.search);
     const submitElapsedMs = Math.round(performance.now() - connectedAt);
-    const honeypot = String(data.get('website') || '');
     const metadata = {
       page_url: window.location.href,
       utm_source: params.get('utm_source') || '',
@@ -65,6 +60,11 @@ export function connectLeadForm(form: HTMLFormElement) {
       utm_campaign: params.get('utm_campaign') || '',
       utm_term: params.get('utm_term') || '',
       utm_content: params.get('utm_content') || '',
+      gclid: params.get('gclid') || '',
+      gbraid: params.get('gbraid') || '',
+      wbraid: params.get('wbraid') || '',
+      fbclid: params.get('fbclid') || '',
+      msclkid: params.get('msclkid') || '',
       referrer: document.referrer,
       submit_elapsed_ms: submitElapsedMs,
     };
@@ -74,10 +74,7 @@ export function connectLeadForm(form: HTMLFormElement) {
       fields,
       metadata,
       submit_elapsed_ms: submitElapsedMs,
-      honeypot,
-      // Retain the existing aliases for consumers of the original payload.
       meta: metadata,
-      website: honeypot,
     };
     const originalText = button.textContent;
     submitting = true;
@@ -88,7 +85,6 @@ export function connectLeadForm(form: HTMLFormElement) {
     const controller = new AbortController();
     const timeout = window.setTimeout(() => controller.abort(), leadConfig.timeoutMs);
     try {
-      // Never automatically retry: a lost response may still represent an accepted lead.
       const response = await fetch(`${mountBase}api/lead`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -103,9 +99,9 @@ export function connectLeadForm(form: HTMLFormElement) {
       if (result?.success !== true) throw new Error('Submission failed');
       submitted = true;
       const name = String(fields.name || '').trim().split(' ')[0] || 'there';
-      status.textContent = `Thanks, ${name}! A ${site.name} roofing specialist will call you shortly.`;
+      status.textContent = `Thanks, ${name}! Your request was accepted.`;
       form.reset();
-      form.dispatchEvent(new CustomEvent('rooflume:lead-submitted', { detail: fields, bubbles: true }));
+      form.dispatchEvent(new CustomEvent('lead:submitted', { bubbles: true }));
 
       window.setTimeout(() => {
         window.location.href = `${mountBase}thank-you/`;
