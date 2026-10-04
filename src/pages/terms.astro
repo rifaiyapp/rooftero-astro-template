@@ -1,0 +1,42 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { site } from '../config/site';
+---
+
+<LegalLayout
+  title="Terms of Use"
+  heading="Terms of Use"
+  description={`Terms governing use of the ${site.name} website and online roofing inquiry features.`}
+>
+  <h2>Website use</h2>
+  <p>These Terms of Use describe the conditions for accessing this website and its inquiry features. Rooftero is currently a fictional demonstration brand and template. A purchaser must replace demonstration information and review these terms for the actual business, services, location, and applicable law before launch.</p>
+
+  <h2>No contract from website use</h2>
+  <p>Viewing the website, requesting an inspection, sending a message, or receiving an automated acknowledgement does not by itself create a roofing contract, guarantee availability, or establish final pricing. Any real project should be governed by the production business’s written proposal, scope, pricing, schedule, warranty terms, and signed agreement.</p>
+
+  <h2>Estimates and service information</h2>
+  <p>Website descriptions are general information. Roof conditions, repair options, material availability, pricing, scheduling, permit requirements, insurance requirements, and project duration can vary after an on-site assessment. A production business should ensure all service claims shown on the site are accurate and supportable.</p>
+
+  <h2>Emergency situations</h2>
+  <p>The website is not an emergency-response service. For an immediate danger involving fire, structural collapse, electrical hazards, severe weather, or personal safety, contact the appropriate emergency service or utility provider and avoid unsafe roof access.</p>
+
+  <h2>Insurance-related information</h2>
+  <p>Any photographs, measurements, estimates, or documentation supplied by a roofing business are not a promise that an insurer will approve or pay a claim. Coverage decisions remain with the property owner and insurance carrier unless applicable law provides otherwise.</p>
+
+  <h2>Acceptable use</h2>
+  <p>You may not misuse the site, interfere with its operation, attempt unauthorized access, submit unlawful or fraudulent information, automate abusive requests, or use the site in a way that harms the owner, its service providers, or other users.</p>
+
+  <h2>Intellectual property</h2>
+  <p>The production business should identify the ownership and permitted use of its branding, photographs, text, designs, trademarks, and other content. Template buyers are responsible for ensuring they have the rights needed for all client-specific assets and content they publish.</p>
+
+  <h2>Third-party services</h2>
+  <p>The production website may rely on hosting, communications, analytics, CRM, automation, maps, payment, scheduling, or other third-party services. Their availability and terms may be governed by the applicable provider.</p>
+
+  <h2>Disclaimer and limitation</h2>
+  <p>To the extent permitted by applicable law, website information is provided for general informational and inquiry purposes and may be changed without notice. A production business should obtain legal review for any warranty disclaimers, liability limitations, dispute terms, governing-law clauses, or consumer notices appropriate to its jurisdiction.</p>
+
+  <h2>Contact</h2>
+  <p>Questions about these website terms can be sent to <a href={site.email.href}>{site.email.display}</a> for this demonstration. Replace this contact before client launch.</p>
+
+  <p class="legal-note"><strong>Template notice:</strong> these terms are a practical starting point and not jurisdiction-specific legal advice. Tailor them to the real roofing business and its customer agreements before production use.</p>
+</LegalLayout>
