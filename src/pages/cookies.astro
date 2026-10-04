@@ -1,0 +1,33 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { site } from '../config/site';
+---
+
+<LegalLayout
+  title="Cookie Policy"
+  heading="Cookie Policy"
+  description={`Cookie and similar-technology information for the ${site.name} website.`}
+>
+  <h2>Current template behavior</h2>
+  <p>The Rooftero demonstration template is intentionally lightweight and does not require advertising, analytics, or personalization cookies to render its core pages. The base template does not include Google Analytics, Google Ads tags, Meta Pixel, chat widgets, or other optional third-party marketing scripts.</p>
+
+  <h2>Essential technologies</h2>
+  <p>The hosting platform and security infrastructure may process technical request information needed to deliver pages, prevent abuse, route forms, and maintain reliability. These operations may use browser or network storage technologies where necessary for security or service delivery.</p>
+
+  <h2>Marketing and analytics</h2>
+  <p>A production business may later add analytics, advertising, call tracking, embedded media, chat, scheduling, maps, or other services that use cookies or similar technologies. Before enabling them, the site owner should update this policy, the Privacy Policy, and any consent controls required by applicable law.</p>
+
+  <h2>Campaign attribution</h2>
+  <p>The inquiry form can preserve campaign parameters contained in the page URL, including UTM values and common advertising click identifiers. This does not require the base template to set an advertising cookie, but the production business should document how it uses attribution information and any connected CRM or advertising tools.</p>
+
+  <h2>Your browser choices</h2>
+  <p>Most browsers allow users to review, block, or delete cookies and site data. Blocking technologies required by a service can affect how that service functions. Instructions vary by browser and device.</p>
+
+  <h2>Changes to this policy</h2>
+  <p>The production owner should update this page whenever it adds, removes, or materially changes technologies that store or access information on a user’s device.</p>
+
+  <h2>Contact</h2>
+  <p>Questions about technologies used on a production version of this website should be directed to the business’s privacy contact. For this demonstration, use <a href={`mailto:${site.legal.privacyEmail}`}>{site.legal.privacyEmail}</a>.</p>
+
+  <p class="legal-note"><strong>Template notice:</strong> cookie and consent requirements vary by jurisdiction and by the technologies a client enables. Review the final production stack before launch.</p>
+</LegalLayout>
