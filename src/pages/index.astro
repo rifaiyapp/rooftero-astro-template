@@ -2,6 +2,7 @@
 import { site } from '../config/site';
 import Layout from '../layouts/Layout.astro';
 import ResponsiveImage from '../components/ResponsiveImage.astro';
+import SiteTopbar from '../components/SiteTopbar.astro';
 
 const benefits = [
   { icon: 'ph-clock-countdown', title: 'We arrive on time', text: 'Clear arrival windows and real updates from your local crew.' },
@@ -37,16 +38,7 @@ const faqs = [
 <Layout>
   <div id="top" aria-hidden="true"></div>
   <header class="site-header">
-    <div class="topbar shell">
-      <a class="brand" href="#top" aria-label={`${site.name} home`}>
-        <img src={site.logo.src} alt={site.logo.alt} width="320" height="76" loading="eager" />
-      </a>
-      <a class="phone-lockup header-phone" href={site.phone.href} aria-label={`Call ${site.name} at ${site.phone.display}`}>
-        <span class="phone-icon"><i class="ph-fill ph-phone-call" aria-hidden="true"></i></span>
-        <span class="phone-copy"><small>Book Same-Day Service</small><strong>Call {site.phone.display}</strong></span>
-      </a>
-      <a class="button button-gold header-cta" href="#callback">{site.primaryCta}</a>
-    </div>
+    <SiteTopbar homeHref="#top" ctaHref="#callback" />
   </header>
 
   <main id="main-content">
@@ -64,7 +56,7 @@ const faqs = [
           <p class="eyebrow">Local roofers. Lasting protection.</p>
           <h1 id="hero-title"><span>Fixed today.</span><strong>Not next storm.</strong></h1>
           <p class="hero-subheading">Roof repair and replacement in North Hills and the greater metro area.</p>
-          <p>Responsive roof repair and replacement from licensed professionals who respect your time, home, and budget.</p>
+          <p>Responsive roof repair and replacement from roofing professionals who respect your time, home, and budget.</p>
           <div class="hero-actions">
             <a class="phone-lockup light" href={site.phone.href} aria-label={`Call a local ${site.name} roofer at ${site.phone.display}`}>
               <span class="phone-icon"><i class="ph ph-phone-call" aria-hidden="true"></i></span>
@@ -73,16 +65,13 @@ const faqs = [
             <a class="button button-gold" href="#callback">{site.primaryCta}</a>
           </div>
           <ul class="hero-proof" aria-label="Service assurances">
-            <li><i class="ph-fill ph-seal-check" aria-hidden="true"></i> Licensed & insured</li>
-            <li><i class="ph-fill ph-star" aria-hidden="true"></i> 4.9 homeowner rating</li>
+            <li><i class="ph-fill ph-seal-check" aria-hidden="true"></i> Clear written estimates</li>
+            <li><i class="ph-fill ph-star" aria-hidden="true"></i> Responsive local service</li>
           </ul>
         </div>
 
-        <form class="callback-card hero-callback" id="callback" method="dialog" novalidate aria-labelledby="callback-title">
-          <div aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);pointer-events:none;">
-            <label for="callback-website">Website</label>
-            <input id="callback-website" name="website" type="text" tabindex="-1" autocomplete="off" />
-          </div>
+        <form class="callback-card hero-callback" id="callback" method="post" action="api/lead" novalidate aria-labelledby="callback-title">
+          <input type="hidden" name="form_source" value="homepage-roof-inspection" />
           <div class="hero-form-panel">
             <div class="form-header"><p>Need roofing help?</p><h2 id="callback-title">Free roof inspection</h2></div>
             <div class="form-body">
@@ -92,7 +81,7 @@ const faqs = [
               <label for="zip">ZIP Code</label><input id="zip" name="zip" autocomplete="postal-code" inputmode="numeric" required pattern="[0-9]{5}(-[0-9]{4})?" maxlength="10" title="Enter a 5-digit ZIP Code or ZIP+4." placeholder="ZIP Code" />
               <label for="message">How can we help?</label><textarea id="message" name="message" rows="2" required placeholder="Tell us about your roof"></textarea>
               <button class="button button-gold submit-button" type="submit">{site.primaryCta}</button>
-              <p class="form-note">No spam. No obligation.</p><p class="form-status" role="status" aria-live="polite"></p>
+              <p class="form-note">No spam. No obligation. By submitting, you agree to our <a href="/privacy/">Privacy Policy</a> and <a href="/terms/">Terms of Use</a>.</p><p class="form-status" role="status" aria-live="polite"></p>
             </div>
           </div>
         </form>
@@ -157,7 +146,7 @@ const faqs = [
           <span class="badge-icon"><i class="ph-fill ph-seal-check" aria-hidden="true"></i></span>
           <div class="badge-copy">
             <strong>Local Roofing Experts</strong>
-            <small>Certified • Safe • Guaranteed</small>
+            <small>Clear scope • Careful work • Updates</small>
           </div>
         </div>
       </div>
@@ -174,22 +163,22 @@ const faqs = [
           <div class="about-trust-item">
             <div class="about-trust-icon"><i class="ph ph-medal" aria-hidden="true"></i></div>
             <div class="about-trust-copy">
-              <strong>Licensed & insured</strong>
-              <span>Professional roofing crews</span>
+              <strong>Clear project scope</strong>
+              <span>Written estimates and updates</span>
             </div>
           </div>
           <div class="about-trust-item">
             <div class="about-trust-icon"><i class="ph ph-shield-checkered" aria-hidden="true"></i></div>
             <div class="about-trust-copy">
-              <strong>Trusted materials</strong>
-              <span>Manufacturer-backed products</span>
+              <strong>Material options</strong>
+              <span>Clear product recommendations</span>
             </div>
           </div>
           <div class="about-trust-item">
             <div class="about-trust-icon"><i class="ph ph-hard-hat" aria-hidden="true"></i></div>
             <div class="about-trust-copy">
-              <strong>Written protection</strong>
-              <span>Clear workmanship terms</span>
+              <strong>Documented work</strong>
+              <span>Scope and service records</span>
             </div>
           </div>
           <div class="about-trust-item">
@@ -213,11 +202,8 @@ const faqs = [
         <div class="process-stage">
           <div class="process-track" aria-hidden="true">
             <svg class="process-wave" viewBox="0 0 1200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Chevrons left, vertically centred at y=63 (icon center in grid coords) -->
               <path class="wave-chevron" d="M10 54l11 9-11 9M24 54l11 9-11 9" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
-              <!-- Wave enters at chevron level (~63), dips through step 1, crests above center card icon, dips through step 3, exits upper right -->
               <path class="wave-path" d="M40 63 C 115 90, 175 94, 235 94 C 355 94, 440 20, 600 20 C 760 20, 845 94, 965 94 C 1035 94, 1080 48, 1128 8" stroke="currentColor" stroke-width="2.5" stroke-dasharray="8 8" stroke-linecap="round" />
-              <!-- Paper plane at the end of the path -->
               <g transform="translate(1105,0) rotate(-25) scale(0.88)">
                 <path class="wave-plane" d="M0 16L32 0L14 32L11 20L0 16z M11 20L32 0" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
               </g>
@@ -264,21 +250,21 @@ const faqs = [
           <span>Homeowners say it best</span>
           <h2 id="reviews-title">Protected homes. Happy clients.</h2>
         </div>
-        <div class="testimonial-carousel" role="region" aria-roledescription="carousel" aria-label="Customer reviews" tabindex="0">
+        <div class="testimonial-carousel" role="region" aria-roledescription="carousel" aria-label="Sample customer testimonials" tabindex="0">
           <div class="testimonial-stage">
             <button class="review-arrow prev" type="button" aria-label="Previous testimonial"><i class="ph ph-caret-left" aria-hidden="true"></i></button>
             <div class="testimonial-grid">
               <div class="testimonial-track" aria-live="polite">
                 {testimonials.map((item, index) => (
-                  <blockquote class="testimonial-card" data-review={index} role="group" aria-roledescription="slide" aria-label={`Review ${index + 1} of ${testimonials.length}`}>
+                  <blockquote class="testimonial-card" data-review={index} role="group" aria-roledescription="slide" aria-label={`Sample testimonial ${index + 1} of ${testimonials.length}`}>
                     <div class="quote-mark">
                       <svg viewBox="0 0 448 512" width="30" height="30" fill="currentColor" aria-hidden="true">
                         <path d="M0 216C0 149.7 53.7 96 120 96h8c17.7 0 32 14.3 32 32s-14.3 32-32 32h-8c-30.9 0-56 25.1-56 56v8h64c35.3 0 64 28.7 64 64v64c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V216zm256 0c0-66.3 53.7-120 120-120h8c17.7 0 32 14.3 32 32s-14.3 32-32 32h-8c-30.9 0-56 25.1-56 56v8h64c35.3 0 64 28.7 64 64v64c0 35.3-28.7 64-64 64h-64c-35.3 0-64-28.7-64-64V216z" />
                       </svg>
                     </div>
                     <p>“{item.quote}”</p>
-                    <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-                    <small class="google-review">Google Review</small>
+                    <div class="stars" aria-label="Decorative five-star sample">★★★★★</div>
+                    <small class="google-review">Sample testimonial</small>
                     <footer><strong>{item.name}</strong><span>{item.area}</span></footer>
                   </blockquote>
                 ))}
@@ -287,7 +273,7 @@ const faqs = [
             <button class="review-arrow next" type="button" aria-label="Next testimonial"><i class="ph ph-caret-right" aria-hidden="true"></i></button>
           </div>
           <div class="testimonial-pagination" role="group" aria-label="Choose a testimonial">
-            {testimonials.map((_, index) => <button type="button" data-review-dot={index} aria-label={`Show review ${index + 1}`} aria-current={index === 0 ? 'true' : 'false'}></button>)}
+            {testimonials.map((_, index) => <button type="button" data-review-dot={index} aria-label={`Show testimonial ${index + 1}`} aria-current={index === 0 ? 'true' : 'false'}></button>)}
           </div>
           <div class="satisfaction-commitment">
             <strong>Customer Satisfaction Commitment</strong>
@@ -330,7 +316,7 @@ const faqs = [
             </li>
             <li>
               <span class="faq-trust-icon" aria-hidden="true"><svg viewBox="0 0 1024 1024" fill="currentColor"><path d="M832 160h-640c-35.346 0-64 28.654-64 64v224c0 210.88 102.08 338.68 187.72 408.76 92.24 75.44 184 101.04 188 102.12 2.519.713 5.412 1.122 8.4 1.122s5.881-.41 8.4-1.122c4-1.08 95.64-26.68 188-102.12 85.4-70.08 187.48-197.88 187.48-408.76v-224c0-35.346-28.654-64-64-64zM694.72 438.64l-224 224c-5.792 5.798-13.797 9.385-22.64 9.385s-16.848-3.587-22.64-9.385l-96-96c-5.794-5.794-9.378-13.799-9.378-22.64 0-17.683 14.335-32.018 32.018-32.018 8.841 0 16.846 3.584 22.64 9.378l73.28 73.4 201.36-201.4c5.794-5.794 13.799-9.378 22.64-9.378 17.683 0 32.018 14.335 32.018 32.018 0 8.841-3.584 16.846-9.378 22.64z" /></svg></span>
-              <span class="faq-trust-copy"><strong>Licensed &amp; insured</strong><small>Professional roofing crews</small></span>
+              <span class="faq-trust-copy"><strong>Documented service</strong><small>Clear project records</small></span>
             </li>
             <li>
               <span class="faq-trust-icon" aria-hidden="true"><svg viewBox="0 0 1024 1024" fill="currentColor"><path d="M512 64c-194.313.228-351.772 157.687-352 352 0 301.2 320 528.68 333.64 538.2 5.116 3.623 11.485 5.791 18.36 5.791s13.244-2.168 18.36-5.791c13.64-9.52 333.64-237 333.64-538.2-.228-194.313-157.687-351.772-352-352zM512 288c70.692 0 128 57.308 128 128s-57.308 128-128 128-128-57.308-128-128 57.308-128 128-128z" /></svg></span>
@@ -383,7 +369,7 @@ const faqs = [
       </div>
       <nav class="footer-links" aria-labelledby="footer-nav-title">
         <h2 id="footer-nav-title">Explore {site.name}</h2>
-        <ul><li><a href="#home">Home</a></li><li><a href="#promise">Why Us</a></li><li><a href="#services">Services</a></li><li><a href="#about">About</a></li><li><a href="#process">How It Works</a></li><li><a href="#reviews">Reviews</a></li><li><a href="#faq">FAQ</a></li><li><a href="#roof-check">Contact</a></li></ul>
+        <ul><li><a href="#home">Home</a></li><li><a href="#promise">Why Us</a></li><li><a href="#services">Services</a></li><li><a href="#about">About</a></li><li><a href="#process">How It Works</a></li><li><a href="#reviews">Reviews</a></li><li><a href="#faq">FAQ</a></li><li><a href="#roof-check">Contact</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms</a></li><li><a href="/accessibility/">Accessibility</a></li><li><a href="/cookies/">Cookies</a></li></ul>
       </nav>
       <div class="footer-action">
         <p>Need an expert look at your roof?</p>
@@ -409,27 +395,6 @@ const faqs = [
   </nav>
 
   <script>
-    const toggle = document.querySelector('.menu-toggle');
-    const nav = document.querySelector('#site-nav');
-    toggle?.addEventListener('click', () => {
-      const open = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!open));
-      toggle.setAttribute('aria-label', open ? 'Open menu' : 'Close menu');
-      nav?.classList.toggle('open', !open);
-    });
-    const closeMenu = () => {
-      toggle?.setAttribute('aria-expanded', 'false');
-      toggle?.setAttribute('aria-label', 'Open menu');
-      nav?.classList.remove('open');
-    };
-    nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
-        closeMenu();
-        (toggle as HTMLButtonElement).focus();
-      }
-    });
-
     const reviewCarousel = document.querySelector<HTMLElement>('.testimonial-carousel');
     const reviewTrack = reviewCarousel?.querySelector<HTMLElement>('.testimonial-track');
     const reviewDots = Array.from(reviewCarousel?.querySelectorAll<HTMLButtonElement>('[data-review-dot]') ?? []);
@@ -538,7 +503,6 @@ const faqs = [
       window.clearTimeout(reviewResizeTimer);
       reviewResizeTimer = window.setTimeout(rebuildReviews, 120);
     });
-    // Read card geometry after layout; user interactions only write transforms.
     if (reviewTrack && originalReviewCards[0]) {
       new ResizeObserver(() => {
         reviewStep = getReviewStep();
