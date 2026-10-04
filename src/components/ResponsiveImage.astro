@@ -7,7 +7,7 @@ const asset = manifest[file];
 const stem = file.replace(/\.[^.]+$/, '');
 const set = (format: string) => asset.widths.map(w => `/assets/optimized/${stem}-${w}.${format} ${w}w`).join(', ');
 ---
-<picture style="display: contents">
+<picture class="responsive-picture">
   <source type="image/avif" srcset={set('avif')} sizes={sizes} />
   <img src={`/assets/optimized/${stem}-${asset.widths.at(-1)}.webp`} srcset={set('webp')} sizes={sizes} alt={alt} width={width ?? asset.width} height={height ?? asset.height} loading={loading} decoding={decoding} fetchpriority={fetchpriority} />
 </picture>
