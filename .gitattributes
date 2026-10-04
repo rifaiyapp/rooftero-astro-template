@@ -1,4 +1,10 @@
-scripts/*.sh text eol=lf
-qa/*.sh text eol=lf
-.vscode export-ignore
-CLAUDE.md export-ignore
+* text=auto
+*.sh text eol=lf
+/.astro export-ignore
+/node_modules export-ignore
+/dist export-ignore
+/tmp export-ignore
+/.env* export-ignore
+/.env.example -export-ignore
+/.dev.vars* export-ignore
+/.wrangler export-ignore
