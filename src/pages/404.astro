@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import { site } from "../config/site";
 ---
 
-<Layout title={`Page not found | ${site.name}`} description="Find your way back to our home page.">
+<Layout title={`Page not found | ${site.name}`} description="Find your way back to our home page." noIndex>
   <main class="thank-you-page" id="main-content">
     <header class="thank-you-header">
       <a class="brand" href="/" data-runtime-mount-home aria-label={`${site.name} home`}>
