@@ -5,7 +5,7 @@ import { site } from "../config/site";
 const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 ---
 
-<Layout title={`Thank You | ${site.name}`} description="Your roof inspection request has been received.">
+<Layout title={`Thank You | ${site.name}`} description="Your roof inspection request has been received." noIndex>
   <main class="thank-you-page" id="main-content">
     <picture class="hero-media" aria-hidden="true">
       <source media="(max-width: 820px)" type="image/avif" srcset={`${base}assets/optimized/roofing-hero-1280.avif`} />
