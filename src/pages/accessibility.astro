@@ -1,0 +1,37 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { site } from '../config/site';
+---
+
+<LegalLayout
+  title="Accessibility Statement"
+  heading="Accessibility Statement"
+  description={`Accessibility information and support contact for the ${site.name} website.`}
+>
+  <h2>Our approach</h2>
+  <p>This template is designed with accessibility as a core requirement, including semantic headings, keyboard-operable controls, visible focus states, form labels, status messaging, responsive layouts, reduced-motion support, and alternative text for meaningful images.</p>
+
+  <h2>Production responsibility</h2>
+  <p>Rooftero is currently a fictional demonstration brand. Accessibility must be reviewed again after a buyer replaces content, images, colors, third-party widgets, forms, documents, videos, or other site features. Client-specific changes can introduce new barriers even when the underlying template is accessible.</p>
+
+  <h2>Supported interaction</h2>
+  <ul>
+    <li>Primary content can be reached using a keyboard and the skip-to-content link.</li>
+    <li>Interactive controls use visible focus indicators and descriptive accessible names.</li>
+    <li>The testimonial carousel supports keyboard arrow controls.</li>
+    <li>FAQ controls expose expanded and collapsed state to assistive technology.</li>
+    <li>Forms use associated labels, browser validation, and a live status region.</li>
+    <li>Motion-sensitive users can benefit from reduced-motion preferences supported by the site.</li>
+  </ul>
+
+  <h2>Known limitations</h2>
+  <p>Accessibility can vary by browser, assistive technology, operating system, zoom level, user settings, and any third-party services added by the production owner. The production business should test important customer journeys and remediate issues that affect access to its services.</p>
+
+  <h2>Feedback and assistance</h2>
+  <p>If you experience difficulty using a production version of this website, the business should provide an accessible way to request the same information or service. For this demonstration, contact <a href={site.email.href}>{site.email.display}</a>. Replace this address with a monitored client contact before launch.</p>
+
+  <h2>Ongoing review</h2>
+  <p>Accessibility should be reviewed whenever meaningful design, content, navigation, form, or third-party integration changes are made. Automated tools are useful, but they do not replace keyboard, screen-reader, zoom, contrast, and real-user testing where appropriate.</p>
+
+  <p class="legal-note"><strong>Template notice:</strong> the production website owner remains responsible for accessibility obligations that apply to its organization, location, services, and customers.</p>
+</LegalLayout>
