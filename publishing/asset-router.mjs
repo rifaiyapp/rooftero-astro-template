@@ -1,4 +1,5 @@
 import { resolveRuntimeMount } from "../src/utils/runtime-mount.mjs";
+import { leadIdentity } from "../src/config/lead-worker.mjs";
 
 const REVALIDATE = "public, max-age=0, must-revalidate";
 const MAX_LEAD_BYTES = 32 * 1024;
@@ -77,6 +78,8 @@ async function submitLead(request, env, url) {
   const payload = JSON.parse(body);
   if (![payload.project_id, payload.form_id].every(id => typeof id === "string" && id.trim()) ||
       typeof env.LEAD_GATEWAY?.fetch !== "function") return leadResponse(503);
+  // Verify this Worker\'s own identity before the Gateway performs KV routing.
+  if (payload.project_id !== leadIdentity.projectId || payload.form_id !== leadIdentity.formId) return leadResponse(403);
 
   try {
     const headers = new Headers({ "Content-Type": "application/json", Accept: "application/json" });

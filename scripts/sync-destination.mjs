@@ -6,6 +6,7 @@ const projectRoot = fileURLToPath(new URL("../", import.meta.url));
 const wranglerPath = new URL("../wrangler.jsonc", import.meta.url);
 const projectConfigPath = new URL("../project.config.json", import.meta.url);
 const leadConfigPath = new URL("../src/config/lead.ts", import.meta.url);
+const leadWorkerIdentityPath = new URL("../src/config/lead-worker.mjs", import.meta.url);
 
 function getRepositoryName() {
   try {
@@ -81,6 +82,8 @@ const wranglerUpdated = wranglerRaw.replace(
 
 const leadRaw = fs.readFileSync(leadConfigPath, "utf8");
 const leadUpdated = replaceLeadIdentity(leadRaw, leadProjectId, leadFormId);
+const workerIdentityRaw = fs.readFileSync(leadWorkerIdentityPath, "utf8");
+const workerIdentityUpdated = replaceLeadIdentity(workerIdentityRaw, leadProjectId, leadFormId);
 
 const projectChanged = projectConfig.name !== repositoryName ||
   projectConfig.deployment?.basePath !== basePath;
@@ -91,6 +94,7 @@ projectConfig.deployment.basePath = basePath;
 
 if (wranglerUpdated !== wranglerRaw) fs.writeFileSync(wranglerPath, wranglerUpdated);
 if (leadUpdated !== leadRaw) fs.writeFileSync(leadConfigPath, leadUpdated);
+if (workerIdentityUpdated !== workerIdentityRaw) fs.writeFileSync(leadWorkerIdentityPath, workerIdentityUpdated);
 if (projectChanged) {
   const newline = projectRaw.includes("\r\n") ? "\r\n" : "\n";
   fs.writeFileSync(projectConfigPath, (JSON.stringify(projectConfig, null, 2) + "\n").replaceAll("\n", newline));
